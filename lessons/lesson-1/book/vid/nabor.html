@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UX-кит — Согласование договоров</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../book.css">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="../index.html">Согласование договоров</a>
+      <p class="brand-note">Продуктовая книга</p>
+      <details class="menu">
+        <summary>Разделы</summary>
+        <nav>
+          <a href="../index.html">Оглавление</a>
+          <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+          <a href="../questions/index.html">Вопросы до работы</a>
+          <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+          <a href="nabor.html" aria-current="page">UX-кит</a>
+          <a href="obrazec.html">Прототип</a>
+        </nav>
+      </details>
+      <nav>
+        <a href="../index.html">Оглавление</a>
+        <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+        <a href="../questions/index.html">Вопросы до работы</a>
+        <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+        <a href="nabor.html" aria-current="page">UX-кит</a>
+        <a href="obrazec.html">Прототип</a>
+      </nav>
+    </aside>
+    <main class="page page-kit">
+      <p class="kicker">Книга · раздел 05</p>
+      <h1>UX-кит</h1>
+      <p class="lead">Образцы вида продукта. Это не экраны приложения и не разрешение писать код продукта. Палитра книги сюда не переносится.</p>
+
+      <div class="dv">
+        <section class="dv-block">
+          <h3>Токены</h3>
+          <p class="dv-caption">Цвет, тип, отступ, линия, фокус, ошибка и успех.</p>
+          <div class="dv-row">
+            <div class="dv-swatch"><i style="background:#f3f4f2"></i><span>фон</span></div>
+            <div class="dv-swatch"><i style="background:#ffffff"></i><span>поверхность</span></div>
+            <div class="dv-swatch"><i style="background:#14161c"></i><span>текст</span></div>
+            <div class="dv-swatch"><i style="background:#1b4f72"></i><span>акцент</span></div>
+            <div class="dv-swatch"><i style="background:#9b2c2c"></i><span>ошибка</span></div>
+            <div class="dv-swatch"><i style="background:#1f6b4a"></i><span>успех</span></div>
+          </div>
+          <div class="dv-type-sample" style="margin-top:0.7rem">
+            <strong>Заголовок экрана</strong>
+            <em>Подпись и вторичный текст. Системный sans, без декора.</em>
+          </div>
+          <p class="dv-caption" style="margin-top:0.8rem">Отступ обычный и большой:</p>
+          <div class="dv-space-bar"><b></b><b class="lg"></b></div>
+          <p class="dv-caption" style="margin-top:0.8rem">Линия</p>
+          <div class="dv-line-sample"></div>
+          <span class="dv-focus-sample">фокус клавиатуры</span>
+          <span class="dv-pill dv-pill-err">ошибка</span>
+          <span class="dv-pill dv-pill-ok">принято</span>
+        </section>
+
+        <section class="dv-block">
+          <h3>Навигация своей стороны</h3>
+          <p class="dv-caption">Шаблоны, проекты, выход. Контрагент этой полосы не видит.</p>
+          <nav class="dv-nav" aria-label="Своя сторона">
+            <a href="#kit-nav" aria-current="page">Шаблоны</a>
+            <a href="#kit-nav">Проекты</a>
+            <a class="dv-nav-exit" href="#kit-nav">Выход</a>
+          </nav>
+        </section>
+
+        <section class="dv-block" id="kit-nav">
+          <h3>Кнопки и поля</h3>
+          <div class="dv-row">
+            <button type="button" class="dv-btn-primary dv-btn">Войти</button>
+            <button type="button" class="dv-btn">Отмена</button>
+            <button type="button" class="dv-btn dv-btn-ghost">Закрыть</button>
+          </div>
+          <div class="dv-row" style="margin-top:0.85rem">
+            <div class="dv-field">
+              <label for="kit-mail">Почта</label>
+              <input class="dv-input" id="kit-mail" type="email" value="anna@firma.ru" autocomplete="off">
+            </div>
+            <div class="dv-field dv-field-err">
+              <label for="kit-pass">Пароль</label>
+              <input class="dv-input" id="kit-pass" type="password" value="demo" autocomplete="off">
+              <span class="dv-hint">Неверная почта или пароль</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="dv-block">
+          <h3>Список и пустое состояние</h3>
+          <ul class="dv-list">
+            <li>
+              <a href="#kit-clause">
+                <span>Договор поставки</span>
+                <span class="dv-list-meta">шаблон</span>
+              </a>
+            </li>
+            <li>
+              <a href="#kit-clause">
+                <span>NDA с подрядчиком</span>
+                <span class="dv-list-meta">шаблон</span>
+              </a>
+            </li>
+          </ul>
+          <div class="dv-empty" style="margin-top:0.7rem">Проектов пока нет.</div>
+        </section>
+
+        <section class="dv-block" id="kit-clause">
+          <h3>Пункт договора</h3>
+          <p class="dv-caption">Не больше одной редакции на сторону. Комментарий на этом экране видит другая сторона.</p>
+
+          <article class="dv-clause">
+            <div class="dv-clause-head">
+              <span class="dv-clause-title">1. Срок</span>
+              <span>без редакции</span>
+            </div>
+            <p>Текст пункта, по которому ещё нет правок сторон.</p>
+          </article>
+
+          <article class="dv-clause">
+            <div class="dv-clause-head">
+              <span class="dv-clause-title">2. Оплата</span>
+              <span>одна редакция</span>
+            </div>
+            <div class="dv-editions">
+              <div class="dv-edition dv-edition-ours">
+                <h4>Наша редакция</h4>
+                <p>Оплата в течение 10 календарных дней после акта.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="dv-clause">
+            <div class="dv-clause-head">
+              <span class="dv-clause-title">3. Ответственность</span>
+              <span>две редакции</span>
+            </div>
+            <div class="dv-editions">
+              <div class="dv-edition dv-edition-ours">
+                <h4>Наша редакция</h4>
+                <p>Неустойка 0,1% за день просрочки, не больше 10% суммы.</p>
+              </div>
+              <div class="dv-edition dv-edition-theirs">
+                <h4>Редакция контрагента</h4>
+                <p>Неустойка 0,05% за день просрочки, не больше 5% суммы.</p>
+              </div>
+            </div>
+            <div class="dv-comments">
+              <div class="dv-comment">
+                <strong>Наш комментарий</strong>
+                10% — потолок по нашей практике.
+              </div>
+              <div class="dv-comment">
+                <strong>Комментарий контрагента</strong>
+                Просим снизить потолок.
+              </div>
+            </div>
+            <div class="dv-actions">
+              <button type="button" class="dv-btn-primary dv-btn">Утвердить редакцию контрагента</button>
+            </div>
+          </article>
+
+          <article class="dv-clause">
+            <div class="dv-clause-head">
+              <span class="dv-clause-title">3. Ответственность</span>
+              <span class="dv-pill dv-pill-ok">после утверждения</span>
+            </div>
+            <div class="dv-editions">
+              <div class="dv-edition dv-edition-ours">
+                <h4>Наша редакция</h4>
+                <p>Неустойка 0,05% за день просрочки, не больше 5% суммы.</p>
+              </div>
+            </div>
+            <div class="dv-comments">
+              <div class="dv-comment">
+                <strong>Наш комментарий</strong>
+                10% — потолок по нашей практике.
+              </div>
+              <div class="dv-comment">
+                <strong>Комментарий контрагента</strong>
+                Просим снизить потолок.
+              </div>
+            </div>
+            <p class="dv-caption" style="margin:0.7rem 0 0">Редакция контрагента исчезла. Комментарии остались.</p>
+          </article>
+        </section>
+      </div>
+
+      <p class="note">Кликабельный путь по экранам — в прототипе. Код продукта от этих образцов не пишем.</p>
+      <nav class="pager">
+        <a href="../backlog/index.html">Назад · Беклог</a>
+        <a class="next" href="obrazec.html">Дальше · Прототип</a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>

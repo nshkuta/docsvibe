@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прототип — Согласование договоров</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../book.css">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="../index.html">Согласование договоров</a>
+      <p class="brand-note">Продуктовая книга</p>
+      <details class="menu">
+        <summary>Разделы</summary>
+        <nav>
+          <a href="../index.html">Оглавление</a>
+          <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+          <a href="../questions/index.html">Вопросы до работы</a>
+          <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+          <a href="nabor.html">UX-кит</a>
+          <a href="obrazec.html" aria-current="page">Прототип</a>
+        </nav>
+      </details>
+      <nav>
+        <a href="../index.html">Оглавление</a>
+        <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+        <a href="../questions/index.html">Вопросы до работы</a>
+        <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+        <a href="nabor.html">UX-кит</a>
+        <a href="obrazec.html" aria-current="page">Прототип</a>
+      </nav>
+    </aside>
+    <main class="page page-kit">
+      <p class="kicker">Книга · раздел 06 · образец</p>
+      <h1>Прототип</h1>
+      <p class="lead">Кликабельные экраны первой версии. Данные выдуманы. Это не продукт.</p>
+      <p>Переключатели ниже — для показа образца, их нет в продукте.</p>
+      <p>
+        <button type="button" class="dv-linkish" data-demo="login">Вход</button>
+        ·
+        <button type="button" class="dv-linkish" data-demo="templates">Шаблоны</button>
+        ·
+        <button type="button" class="dv-linkish" data-demo="projects">Проекты</button>
+        ·
+        <button type="button" class="dv-linkish" data-demo="ours">Согласование, своя сторона</button>
+        ·
+        <button type="button" class="dv-linkish" data-demo="link">Согласование по ссылке-ключу</button>
+      </p>
+
+      <div class="dv dv-app" id="proto">
+        <div class="dv-app-bar" id="own-bar" hidden>
+          <nav class="dv-nav" aria-label="Своя сторона">
+            <a href="#templates" data-go="templates" id="nav-templates">Шаблоны</a>
+            <a href="#projects" data-go="projects" id="nav-projects">Проекты</a>
+            <a class="dv-nav-exit" href="#login" data-go="login">Выход</a>
+          </nav>
+        </div>
+        <div class="dv-app-bar" id="link-bar" hidden>
+          <span class="dv-app-title">Согласование по ссылке-ключу</span>
+          <span class="dv-app-note">Образец · контрагент · без списков своей стороны</span>
+        </div>
+
+        <section class="dv-screen" id="screen-login">
+          <form class="dv-login" id="login-form">
+            <h2>Вход</h2>
+            <p class="dv-caption">Своя сторона. Почта и пароль.</p>
+            <div class="dv-field">
+              <label for="mail">Почта</label>
+              <input class="dv-input" id="mail" name="mail" type="email" value="anna@firma.ru" autocomplete="username">
+            </div>
+            <div class="dv-field">
+              <label for="pass">Пароль</label>
+              <input class="dv-input" id="pass" name="pass" type="password" value="demo" autocomplete="current-password">
+            </div>
+            <button type="submit" class="dv-btn dv-btn-primary">Войти</button>
+          </form>
+        </section>
+
+        <section class="dv-screen" id="screen-templates">
+          <div class="dv-toolbar">
+            <h2 class="dv-app-title">Шаблоны договоров</h2>
+            <button type="button" class="dv-linkish" id="toggle-templates">Показать пустой список</button>
+          </div>
+          <ul class="dv-list" id="templates-list"></ul>
+          <div class="dv-empty" id="templates-empty" hidden>Шаблонов пока нет.</div>
+        </section>
+
+        <section class="dv-screen" id="screen-projects">
+          <div class="dv-toolbar">
+            <h2 class="dv-app-title">Проекты согласования</h2>
+            <button type="button" class="dv-linkish" id="toggle-projects">Показать пустой список</button>
+          </div>
+          <ul class="dv-list" id="projects-list"></ul>
+          <div class="dv-empty" id="projects-empty" hidden>Проектов пока нет.</div>
+        </section>
+
+        <section class="dv-screen" id="screen-ours">
+          <div class="dv-toolbar">
+            <div>
+              <h2 class="dv-app-title">Поставка комплектующих</h2>
+              <p class="dv-caption">Образец · вид своей стороны</p>
+            </div>
+          </div>
+          <div id="clauses-ours"></div>
+        </section>
+
+        <section class="dv-screen" id="screen-link">
+          <div class="dv-toolbar">
+            <div>
+              <h2 class="dv-app-title">Поставка комплектующих</h2>
+              <p class="dv-caption">Образец · вид контрагента</p>
+            </div>
+          </div>
+          <div id="clauses-link"></div>
+        </section>
+      </div>
+
+      <p class="note">Утверждение всего договора в книге не решено, кнопки итога здесь нет. Загрузка файла и нарезка пунктов не показаны.</p>
+      <nav class="pager">
+        <a href="nabor.html">Назад · UX-кит</a>
+        <a class="next" href="../index.html">К оглавлению</a>
+      </nav>
+    </main>
+  </div>
+  <script>
+    const clauses = [
+      {
+        id: "c1",
+        title: "1. Предмет",
+        body: "Поставщик передаёт, покупатель принимает комплектующие по спецификации.",
+        ours: "",
+        theirs: "",
+        ourComment: "",
+        theirComment: "",
+        label: "без спора"
+      },
+      {
+        id: "c2",
+        title: "2. Оплата",
+        body: "",
+        ours: "Оплата в течение 10 календарных дней после акта.",
+        theirs: "",
+        ourComment: "",
+        theirComment: "",
+        label: "одна наша редакция"
+      },
+      {
+        id: "c3",
+        title: "3. Ответственность",
+        body: "",
+        ours: "Неустойка 0,1% за день просрочки, не больше 10% суммы.",
+        theirs: "Неустойка 0,05% за день просрочки, не больше 5% суммы.",
+        ourComment: "10% — потолок по нашей практике.",
+        theirComment: "Просим снизить потолок.",
+        label: "две редакции"
+      },
+      {
+        id: "c4",
+        title: "4. Конфиденциальность",
+        body: "Стороны не раскрывают условия договора третьим лицам.",
+        ours: "",
+        theirs: "",
+        ourComment: "Срок молчания — три года после окончания договора.",
+        theirComment: "Согласны с тремя годами.",
+        label: "только комментарии"
+      }
+    ];
+
+    const templates = [
+      { title: "Договор поставки", meta: "шаблон" },
+      { title: "NDA с подрядчиком", meta: "шаблон" }
+    ];
+    const projects = [
+      { title: "Поставка комплектующих", meta: "в работе" },
+      { title: "NDA · студия «Север»", meta: "ожидает контрагента" }
+    ];
+
+    let screen = "login";
+    let templatesEmpty = false;
+    let projectsEmpty = false;
+
+    function go(name) {
+      screen = name;
+      document.querySelectorAll(".dv-screen").forEach((el) => {
+        el.classList.toggle("is-on", el.id === "screen-" + name);
+      });
+      const own = name !== "login" && name !== "link";
+      document.getElementById("own-bar").hidden = !own;
+      document.getElementById("link-bar").hidden = name !== "link";
+      const navT = document.getElementById("nav-templates");
+      const navP = document.getElementById("nav-projects");
+      if (name === "templates") navT.setAttribute("aria-current", "page");
+      else navT.removeAttribute("aria-current");
+      if (name === "projects") navP.setAttribute("aria-current", "page");
+      else navP.removeAttribute("aria-current");
+      if (name === "ours" || name === "link") renderClauses();
+    }
+
+    function renderList(target, emptyEl, items, empty, onOpen) {
+      emptyEl.hidden = !empty;
+      target.hidden = empty;
+      target.innerHTML = "";
+      if (empty) return;
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "#ours";
+        a.innerHTML = "<span>" + item.title + "</span><span class=\"dv-list-meta\">" + item.meta + "</span>";
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          onOpen();
+        });
+        li.appendChild(a);
+        target.appendChild(li);
+      });
+    }
+
+    function renderLists() {
+      renderList(
+        document.getElementById("templates-list"),
+        document.getElementById("templates-empty"),
+        templates,
+        templatesEmpty,
+        () => go("ours")
+      );
+      renderList(
+        document.getElementById("projects-list"),
+        document.getElementById("projects-empty"),
+        projects,
+        projectsEmpty,
+        () => go("ours")
+      );
+      document.getElementById("toggle-templates").textContent = templatesEmpty
+        ? "Показать список"
+        : "Показать пустой список";
+      document.getElementById("toggle-projects").textContent = projectsEmpty
+        ? "Показать список"
+        : "Показать пустой список";
+    }
+
+    function editionBlock(kind, title, text) {
+      if (!text) return "";
+      return (
+        "<div class=\"dv-edition dv-edition-" + kind + "\"><h4>" + title + "</h4><p>" + text + "</p></div>"
+      );
+    }
+
+    function commentBlock(title, text) {
+      if (!text) return "";
+      return "<div class=\"dv-comment\"><strong>" + title + "</strong>" + text + "</div>";
+    }
+
+    function clauseHtml(item, canApprove) {
+      const editions = editionBlock("ours", "Наша редакция", item.ours) +
+        editionBlock("theirs", "Редакция контрагента", item.theirs);
+      const comments = commentBlock("Наш комментарий", item.ourComment) +
+        commentBlock("Комментарий контрагента", item.theirComment);
+      const approve = canApprove && item.theirs
+        ? "<div class=\"dv-actions\"><button type=\"button\" class=\"dv-btn dv-btn-primary\" data-approve=\"" +
+          item.id +
+          "\">Утвердить редакцию контрагента</button></div>"
+        : "";
+      const body = item.body ? "<p>" + item.body + "</p>" : "";
+      return (
+        "<article class=\"dv-clause\">" +
+        "<div class=\"dv-clause-head\"><span class=\"dv-clause-title\">" +
+        item.title +
+        "</span><span>" +
+        item.label +
+        "</span></div>" +
+        body +
+        (editions ? "<div class=\"dv-editions\">" + editions + "</div>" : "") +
+        (comments ? "<div class=\"dv-comments\">" + comments + "</div>" : "") +
+        approve +
+        "</article>"
+      );
+    }
+
+    function renderClauses() {
+      const ours = screen === "ours";
+      const html = clauses.map((item) => clauseHtml(item, ours)).join("");
+      document.getElementById("clauses-ours").innerHTML = html;
+      document.getElementById("clauses-link").innerHTML = clauses
+        .map((item) => clauseHtml(item, false))
+        .join("");
+    }
+
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      go("templates");
+    });
+    document.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        go(el.getAttribute("data-go"));
+      });
+    });
+    document.querySelectorAll("[data-demo]").forEach((el) => {
+      el.addEventListener("click", () => go(el.getAttribute("data-demo")));
+    });
+    document.getElementById("toggle-templates").addEventListener("click", () => {
+      templatesEmpty = !templatesEmpty;
+      renderLists();
+    });
+    document.getElementById("toggle-projects").addEventListener("click", () => {
+      projectsEmpty = !projectsEmpty;
+      renderLists();
+    });
+    document.getElementById("proto").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-approve]");
+      if (!btn) return;
+      const item = clauses.find((c) => c.id === btn.getAttribute("data-approve"));
+      if (!item || !item.theirs) return;
+      item.ours = item.theirs;
+      item.theirs = "";
+      item.label = "редакция контрагента принята";
+      renderClauses();
+    });
+
+    renderLists();
+    go("login");
+  </script>
+</body>
+</html>
