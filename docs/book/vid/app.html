@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocsVibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body class="dv-standalone">
+  <div class="dv dv-app" id="app-root">
+    <div class="dv-app-bar" id="own-bar" hidden>
+      <nav class="dv-nav" aria-label="Своя сторона">
+        <span class="dv-nav-name">DocsVibe</span>
+        <a href="#templates" data-go="templates" id="nav-templates">Шаблоны</a>
+        <a href="#projects" data-go="projects" id="nav-projects">Проекты</a>
+        <a class="dv-nav-exit" href="#login" data-go="login">Выход</a>
+      </nav>
+    </div>
+    <div class="dv-guest-bar" id="guest-bar" hidden>
+      <span class="dv-nav-name">DocsVibe</span>
+      <span class="dv-app-note">Согласование по ссылке-ключу · контрагент · без списков своей стороны</span>
+    </div>
+
+    <section class="dv-screen" id="screen-login">
+      <form class="dv-login" id="login-form">
+        <p class="dv-nav-name">DocsVibe</p>
+        <h2>Вход</h2>
+        <p class="dv-caption">Своя сторона. Почта и пароль.</p>
+        <div class="dv-field">
+          <label for="mail">Почта</label>
+          <input class="dv-input" id="mail" name="mail" type="email" value="iris@sinyaya-polka.test" autocomplete="username">
+        </div>
+        <div class="dv-field">
+          <label for="pass">Пароль</label>
+          <input class="dv-input" id="pass" name="pass" type="password" value="demo" autocomplete="current-password">
+        </div>
+        <button type="submit" class="dv-btn dv-btn-primary">Войти</button>
+      </form>
+    </section>
+
+    <section class="dv-screen" id="screen-templates">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title">Шаблоны договоров</h2>
+        <button type="button" class="dv-linkish" id="toggle-templates">Показать пустой список</button>
+      </div>
+      <ul class="dv-list" id="templates-list"></ul>
+      <div class="dv-empty" id="templates-empty" hidden>Шаблонов пока нет.</div>
+    </section>
+
+    <section class="dv-screen" id="screen-projects">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title">Проекты согласования</h2>
+        <button type="button" class="dv-linkish" id="toggle-projects">Показать пустой список</button>
+      </div>
+      <ul class="dv-list" id="projects-list"></ul>
+      <div class="dv-empty" id="projects-empty" hidden>Проектов пока нет.</div>
+    </section>
+
+    <section class="dv-screen" id="screen-ours">
+      <div class="dv-toolbar">
+        <div>
+          <h2 class="dv-app-title">Поставка комплектующих · СЯ-184</h2>
+          <p class="dv-caption">Вид своей стороны. Весь договор одним потоком.</p>
+        </div>
+        <button type="button" class="dv-btn dv-btn-primary" id="btn-print" hidden>Печать HTML</button>
+      </div>
+      <p class="dv-caption" id="print-wait" hidden>Пока есть спорные пункты, печати нет. Документ не утверждён.</p>
+      <div class="dv-linkbox" id="link-box" style="margin-bottom:1rem"></div>
+      <div id="doc-ours"></div>
+    </section>
+
+    <section class="dv-screen" id="screen-link">
+      <p class="dv-empty" id="link-dead" hidden>Ссылка отозвана или ещё не выдана. Документа здесь нет.</p>
+      <div id="doc-link"></div>
+    </section>
+
+    <section class="dv-screen" id="screen-print">
+      <div class="dv-toolbar">
+        <p class="dv-caption">HTML для печати. Панелей пункта нет.</p>
+        <button type="button" class="dv-btn" id="print-back">К согласованию</button>
+      </div>
+      <div id="doc-print"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

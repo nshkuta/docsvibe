@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>План макета — Согласование договоров</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../book.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="../index.html">Согласование договоров</a>
+      <p class="brand-note">Продуктовая книга</p>
+      <details class="menu">
+        <summary>Разделы</summary>
+        <nav>
+          <a href="../index.html">Оглавление</a>
+          <a href="index.html">Как устроен продукт сейчас</a>
+          <a href="plan.html" aria-current="page">План макета</a>
+          <a href="../questions/index.html">Вопросы до работы</a>
+          <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+          <a href="../vid/nabor.html">UX-кит</a>
+          <a href="../vid/obrazec.html">Прототип</a>
+        </nav>
+      </details>
+      <nav>
+        <a href="../index.html">Оглавление</a>
+        <a href="index.html">Как устроен продукт сейчас</a>
+        <a href="plan.html" aria-current="page">План макета</a>
+        <a href="../questions/index.html">Вопросы до работы</a>
+        <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+        <a href="../vid/nabor.html">UX-кит</a>
+        <a href="../vid/obrazec.html">Прототип</a>
+      </nav>
+    </aside>
+    <main class="page">
+      <p class="kicker">Книга · план макета</p>
+      <h1>План макета DocsVibe</h1>
+      <p class="lead">Зачем эта страница: зафиксировать ресёрч и порядок работ. По ней закрывают вопросы в книге, затем обновляют UX-кит и прототип. Это не код продукта.</p>
+
+      <h2>1. Зачем этот план</h2>
+      <p>Макет должен читать договор одним потоком, в сине-белой гамме, без вида «нейрослопа». Навигация своей стороны сквозная. Прототип открывается и вне книги. Внутреннее обсуждение и несколько людей у контрагента в первой версии нет.</p>
+
+      <h2>2. Ресёрч в сети</h2>
+      <p>Метод. Четыре оси поиска: спокойный продукт 2026 года; что делает интерфейс нейрослопным; UX длинного документа и рецензии; сине-белый B2B, где синий — роль, а не заливка. Цитата только со страницы, которую открывали. Сниппет поиска фактом не считается.</p>
+      <p>Запросы: AI slop UI 2026; UX design trends 2026 calm; inline comments document review; CLM contract negotiation UX; IBM Carbon color; GitHub Primer color; NN/g AI prototyping.</p>
+      <p>Отброшено. <a href="https://elements.envato.com/learn/ux-ui-design-trends">Envato, тренды UX/UI</a> — Cloudflare, текст не прочитан. Sailop и Briskly целиком не открывали, в выводы не входят.</p>
+      <p>Открытые источники и зачем они:</p>
+      <ul>
+        <li><a href="https://www.nngroup.com/articles/ai-prototyping/">NN/G, AI prototyping</a> — без явного визуального языка экраны шаблонные и «хороши издалека».</li>
+        <li><a href="https://www.uxmatters.com/mt/archives/2026/01/the-hidden-geometry-of-calm-screens.php">UXmatters, Calm screens</a> — спокойствие от сетки и выравнивания, не от пустых полей.</li>
+        <li><a href="https://www.925studios.co/blog/ai-slop-web-design-guide">925 Studios, AI slop web design</a> — признаки слопа: Inter по умолчанию, фиолетово-синий градиент, одинаковые карточки.</li>
+        <li><a href="https://smoothui.dev/blog/ai-design-slop">SmoothUI, AI design slop</a> — стекло, одинаковая сетка карточек, bounce на наведении.</li>
+        <li><a href="https://www.carbondesignsystem.com/building-blocks/foundations/color/overview">Carbon, цвет</a> — белый и серый слой, синий как действие, токены по роли.</li>
+        <li><a href="https://www.ibm.com/standards/carbon/guidelines/expressive-styling/overview">Carbon, expressive</a> — 16px для чтения, 14px для хрома продукта. Договор не маркетинговый hero.</li>
+        <li><a href="https://primer.style/foundations/color">Primer, цвет</a> — белая бумага, inset-серый, акцент около <code>#0969da</code>, не фиолетовый градиент.</li>
+        <li><a href="https://support.google.com/docs/answer/6033474">Google Docs, предложения</a> — правка в потоке текста.</li>
+        <li><a href="https://support.microsoft.com/en-us/office/using-modern-comments-in-word-edc6ae71-0a2d-49fe-8faa-986f1e48136a">Word, современные комментарии</a> — комментарий у якоря в тексте, не карточка всего документа.</li>
+        <li><a href="https://majkowska.design/case-study/helping-users-negotiate-and-collaborate-more-effectively-in-contractbook">Contractbook, кейс</a> — без правки в продукте люди уходят в Word; нужны предложение правки и комментарий.</li>
+        <li><a href="https://documentation.conga.com/en/clm-for-advantage-platform/preview/clm-for-users/contract-details-and-actions/comparing-contract-documents">Conga, сравнение</a> — отличия смотрят в одном просмотрщике, разметка в тексте.</li>
+        <li><a href="https://www.lazarev.agency/cases/kontrakiq">Kontrak IQ</a> — документ, комментарии и статус пункта вместе. Дашборды портфеля в макет не копируем.</li>
+      </ul>
+      <p>Вывод. Согласование — столбец бумаги. Панель пункта держится номера и не режет абзац на карточки. Навигация своей стороны постоянная и узкая. Контрагент без списков шаблонов и проектов.</p>
+
+      <h2>3. Поиск качественного визуала</h2>
+      <p>Метод. Сравнивали не лендинги SaaS, а системы, где синий — ссылка, кнопка или фокус, а фон — бумага: Carbon White, Primer light, поле документа в Docs и Word. Не референс: три карточки, indigo-gradient, стекло.</p>
+      <p>Токены ниже — гипотеза до записи в UX-кит. После кита они становятся образцом вида продукта.</p>
+      <ul>
+        <li>фон <code>#f6f8fa</code>, поверхность <code>#ffffff</code>, текст <code>#1f2328</code>, вторичный <code>#59636e</code>;</li>
+        <li>акцент <code>#0969da</code> — не Tailwind <code>#2563EB</code> и не фиолетовый;</li>
+        <li>линия <code>#d1d9e0</code>, ошибка <code>#cf222e</code>, успех <code>#1a7f37</code>;</li>
+        <li>хром — системный или IBM Plex Sans; текст договора — антиква вроде Source Serif, не один Inter;</li>
+        <li>у листа радиус 0 или очень маленький; теней почти нет.</li>
+      </ul>
+      <p>Чеклист против нейрослопа:</p>
+      <ul>
+        <li>нет фиолетово-синего градиента и стеклянных пятен;</li>
+        <li>нет сетки одинаковых карточек пунктов;</li>
+        <li>нет нарисованного логотипа и стоковых картинок;</li>
+        <li>нет bounce на наведении;</li>
+        <li>синий не заливает фон;</li>
+        <li>тексты короткие, без канцелярита и «премиальности».</li>
+      </ul>
+
+      <h2>4. Что уже решил заказчик</h2>
+      <p>Ответы заказчика записаны в вопросы и в «Как устроен продукт сейчас». Ниже — что закрыто этим объёмом:</p>
+      <ul>
+        <li><a href="../questions/index.html#q-punkt">Пункт</a> — самостоятельный нумерованный блок. Система предлагает нарезку по абзацам и заголовкам, человек правит. Экран нарезки позже.</li>
+        <li><a href="../questions/index.html#q-ssilka">Ссылка-ключ</a> — виден весь документ. Имена людей своей стороны не решены, выдумывать нельзя.</li>
+        <li><a href="../questions/index.html#q-itog">Итог</a> — ставит своя сторона, когда обе явно согласны. Спор: документ «не утверждён». Возврата во внутреннее обсуждение нет.</li>
+        <li><a href="../questions/index.html#q-otzyv">Ссылка</a> — выдача, отзыв, повторная выдача в интерфейсе своей стороны.</li>
+        <li><a href="../questions/index.html#q-vnutri">Внутреннее</a> и <a href="../questions/index.html#q-ljudi">люди</a> — вне первой версии. У контрагента один доступ. Обещание «сначала внутри своей стороны» в устройстве продукта вычеркнуто.</li>
+        <li><a href="../questions/index.html#q-posle-itoga">После итога</a> — нет спорных пунктов: кнопка HTML-версии для печати.</li>
+        <li><a href="../questions/index.html#q-fajl">Файл</a> — пока только текст.</li>
+      </ul>
+
+      <h2>5. Что ещё блокирует</h2>
+      <ul>
+        <li><a href="../questions/index.html#q-hranenie">Где хранить документ</a> — решим, когда пойдём от макета к коду.</li>
+        <li><a href="../questions/index.html#q-kto-gruzit">Кто загружает первую версию</a> — ответа нет. В макете грузит только уже описанный путь своей стороны.</li>
+        <li>Видны ли имена людей своей стороны — открыто. В макете стороны называем «своя» и «контрагент», без имён.</li>
+      </ul>
+
+      <h2>6. Шаги этой работы</h2>
+      <ol>
+        <li>Эта страница и ссылка из оглавления. Готово, когда план открывается из меню.</li>
+        <li>Записать ответы в <a href="../questions/index.html">вопросы</a> и поправить <a href="index.html">устройство продукта</a>. Готово, когда закрытые помечены, открытые явно остаются, текст про внутреннее обсуждение вычищен.</li>
+        <li>UX-кит: токены, навигация в лейауте, панель пункта, состояния ссылки, кнопка печати. Файлы <a href="../vid/nabor.html">nabor.html</a> и product.css. Готово, когда пункты не карточки и чеклист слопа проходит.</li>
+        <li>Прототип в книге и отдельная страница <a href="../vid/app.html">vid/app.html</a>. Готово, когда есть клик-путь вход → проекты → согласование → ссылка контрагента, договор потоком, DocsVibe текстом, узкий экран не ломает чтение.</li>
+      </ol>
+      <p>Не делать на этих шагах: код приложения вне книги, беклог, коммит, экран нарезки файла, несколько людей, внутреннее обсуждение.</p>
+
+      <h2>7. Вне объёма</h2>
+      <p>Хранилище. Электронная подпись. Формальные цепочки. Несколько пользователей у стороны. Внутреннее обсуждение. Загрузка не текстового файла.</p>
+
+      <nav class="pager">
+        <a href="index.html">Назад · Как устроен продукт сейчас</a>
+        <a class="next" href="../questions/index.html">Дальше · Вопросы до работы</a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>
