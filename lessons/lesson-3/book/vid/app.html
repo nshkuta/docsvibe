@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocsVibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body class="dv-standalone">
+  <div class="dv dv-app" id="app-root">
+    <div class="dv-app-bar" id="own-bar" hidden>
+      <nav class="dv-nav" aria-label="Своя сторона">
+        <span class="dv-nav-name">DocsVibe</span>
+        <a href="#dash" data-go="dash" id="nav-dash">Дашборд</a>
+        <a href="#templates" data-go="templates" id="nav-templates">Шаблоны</a>
+        <a href="#orgs" data-go="orgs" id="nav-orgs">Реквизиты</a>
+        <a href="#settings" data-go="settings" id="nav-settings">Настройки</a>
+        <span class="dv-nav-user" id="nav-user"></span>
+        <a class="dv-nav-exit" href="#login" data-go="login">Выход</a>
+      </nav>
+    </div>
+    <div class="dv-guest-bar" id="guest-bar" hidden>
+      <span class="dv-nav-name">DocsVibe</span>
+      <span class="dv-app-note">Согласование по ссылке-ключу · контрагент · без дашборда и списков своей стороны</span>
+    </div>
+
+    <section class="dv-screen" id="screen-register">
+      <form class="dv-login" id="register-form">
+        <p class="dv-nav-name">DocsVibe</p>
+        <h2>Регистрация</h2>
+        <p class="dv-caption">Своя сторона. Почта и пароль. Имя можно задать позже в настройках.</p>
+        <div class="dv-field">
+          <label for="reg-mail">Почта</label>
+          <input class="dv-input" id="reg-mail" name="mail" type="email" value="iris@sinyaya-polka.test" autocomplete="username">
+        </div>
+        <div class="dv-field" id="reg-pass-wrap">
+          <label for="reg-pass">Пароль</label>
+          <input class="dv-input" id="reg-pass" name="pass" type="password" value="demo" minlength="4" autocomplete="new-password">
+          <span class="dv-hint" id="reg-pass-hint">Не короче четырёх знаков. Можно показать пароль рядом.</span>
+        </div>
+        <label class="dv-check"><input type="checkbox" id="reg-show"> Показать пароль</label>
+        <button type="submit" class="dv-btn dv-btn-primary">Зарегистрироваться</button>
+        <p class="dv-caption" style="margin-top:0.9rem"><a href="#login" data-go="login">Уже есть вход</a></p>
+      </form>
+    </section>
+
+    <section class="dv-screen" id="screen-mail">
+      <div class="dv-login">
+        <p class="dv-nav-name">DocsVibe</p>
+        <h2>Письмо отправлено</h2>
+        <p class="dv-caption" id="mail-copy">На iris@sinyaya-polka.test ушло письмо. Пока почту не подтвердите, в работу не пускаем.</p>
+        <p class="dv-open-note">В книге ещё открыто: срок письма и лимит повтора.</p>
+        <div class="dv-row">
+          <button type="button" class="dv-btn" id="mail-resend">Выслать снова</button>
+        </div>
+        <p class="dv-caption" id="mail-resend-note" hidden>Письмо выслано ещё раз. Это мок, почтовый сервер не зовём.</p>
+        <p class="dv-caption" style="margin-top:0.9rem"><a href="#login" data-go="login">Ко входу</a></p>
+      </div>
+    </section>
+
+    <section class="dv-screen" id="screen-login">
+      <form class="dv-login" id="login-form">
+        <p class="dv-nav-name">DocsVibe</p>
+        <h2>Вход</h2>
+        <p class="dv-caption">Своя сторона. Почта и пароль.</p>
+        <div class="dv-field" id="login-err-wrap" hidden>
+          <span class="dv-hint" id="login-err"></span>
+        </div>
+        <div class="dv-field">
+          <label for="mail">Почта</label>
+          <input class="dv-input" id="mail" name="mail" type="email" value="iris@sinyaya-polka.test" autocomplete="username">
+        </div>
+        <div class="dv-field">
+          <label for="pass">Пароль</label>
+          <input class="dv-input" id="pass" name="pass" type="password" value="demo" autocomplete="current-password">
+        </div>
+        <label class="dv-check"><input type="checkbox" id="login-show"> Показать пароль</label>
+        <button type="submit" class="dv-btn dv-btn-primary">Войти</button>
+        <p class="dv-caption" style="margin-top:0.9rem"><a href="#register" data-go="register">Регистрация</a></p>
+      </form>
+    </section>
+
+    <section class="dv-screen" id="screen-dash">
+      <div class="dv-toolbar">
+        <div>
+          <h2 class="dv-app-title">Дашборд</h2>
+          <p class="dv-caption" id="dash-line"></p>
+        </div>
+      </div>
+      <ul class="dv-list" id="dash-list"></ul>
+      <div class="dv-empty" id="dash-empty" hidden>Открытых проектов нет. Шаблон собирают в разделе «Шаблоны».</div>
+    </section>
+
+    <section class="dv-screen" id="screen-settings">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title">Настройки аккаунта</h2>
+      </div>
+      <form class="dv-form" id="settings-form">
+        <div class="dv-field">
+          <label for="set-name">Имя в интерфейсе</label>
+          <input class="dv-input" id="set-name" type="text" autocomplete="name">
+        </div>
+        <p class="dv-open-note">В книге ещё открыто: видит ли это имя контрагент.</p>
+        <div class="dv-field" id="set-now-wrap">
+          <label for="set-pass-now">Текущий пароль</label>
+          <input class="dv-input" id="set-pass-now" type="password" autocomplete="current-password">
+          <span class="dv-hint" id="set-now-hint">Нужен, только если меняете пароль.</span>
+        </div>
+        <div class="dv-field" id="set-pass-wrap">
+          <label for="set-pass">Новый пароль</label>
+          <input class="dv-input" id="set-pass" type="password" minlength="4" autocomplete="new-password">
+          <span class="dv-hint" id="set-pass-hint">Оставьте пустым, если пароль не меняете. Не короче четырёх знаков.</span>
+        </div>
+        <label class="dv-check"><input type="checkbox" id="set-show"> Показать пароль</label>
+        <button type="submit" class="dv-btn dv-btn-primary">Сохранить</button>
+        <p class="dv-caption" id="set-ok" hidden>Сохранено. Имя в верхней полосе обновляется сразу.</p>
+      </form>
+    </section>
+
+    <section class="dv-screen" id="screen-orgs">
+      <div class="dv-toolbar">
+        <div>
+          <h2 class="dv-app-title">Реквизиты</h2>
+          <p class="dv-caption">Организации, от имени которых вы подписываете договор. Это не электронная подпись.</p>
+        </div>
+        <button type="button" class="dv-btn dv-btn-primary" id="org-new">Добавить</button>
+      </div>
+      <p class="dv-open-note">В книге ещё открыто: точный перечень полей по ОПФ.</p>
+      <ul class="dv-list" id="orgs-list"></ul>
+      <div class="dv-empty" id="orgs-empty" hidden>Организаций пока нет.</div>
+    </section>
+
+    <section class="dv-screen" id="screen-org-form">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title" id="org-form-title">Организация</h2>
+        <button type="button" class="dv-btn" data-go="orgs">К списку</button>
+      </div>
+      <form class="dv-form" id="org-form">
+        <fieldset class="dv-fieldset">
+          <legend>Организационно-правовая форма</legend>
+          <label class="dv-check"><input type="radio" name="opf" value="ooo"> ООО</label>
+          <label class="dv-check"><input type="radio" name="opf" value="ip"> ИП</label>
+          <label class="dv-check"><input type="radio" name="opf" value="fl"> Физлицо</label>
+        </fieldset>
+        <div class="dv-field" data-opf="ooo">
+          <label for="org-title">Название</label>
+          <input class="dv-input" id="org-title" name="title">
+        </div>
+        <div class="dv-field" data-opf="ip fl">
+          <label for="org-fio">ФИО</label>
+          <input class="dv-input" id="org-fio" name="fio">
+        </div>
+        <div class="dv-field" data-opf="ooo">
+          <label for="org-ogrn">ОГРН</label>
+          <input class="dv-input" id="org-ogrn" name="ogrn">
+        </div>
+        <div class="dv-field" data-opf="ip">
+          <label for="org-ogrnip">ОГРНИП</label>
+          <input class="dv-input" id="org-ogrnip" name="ogrnip">
+        </div>
+        <div class="dv-field" data-opf="ooo ip fl">
+          <label for="org-inn">ИНН</label>
+          <input class="dv-input" id="org-inn" name="inn">
+        </div>
+        <div class="dv-field" data-opf="ooo">
+          <label for="org-kpp">КПП</label>
+          <input class="dv-input" id="org-kpp" name="kpp">
+        </div>
+        <div class="dv-field" data-opf="fl">
+          <label for="org-passp">Паспорт</label>
+          <input class="dv-input" id="org-passp" name="passport">
+        </div>
+        <div class="dv-field" data-opf="ooo ip fl">
+          <label for="org-addr">Адрес</label>
+          <input class="dv-input" id="org-addr" name="address">
+        </div>
+        <div class="dv-field" data-opf="ooo ip fl">
+          <label for="org-role">Должность подписанта</label>
+          <input class="dv-input" id="org-role" name="role">
+        </div>
+        <div class="dv-field" data-opf="ooo ip fl">
+          <label for="org-base">Основание подписи</label>
+          <input class="dv-input" id="org-base" name="base">
+        </div>
+        <div class="dv-row">
+          <button type="submit" class="dv-btn dv-btn-primary">Сохранить</button>
+          <button type="button" class="dv-btn dv-btn-danger" id="org-delete" hidden>Удалить</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="dv-screen" id="screen-templates">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title">Шаблоны договоров</h2>
+        <div class="dv-row">
+          <button type="button" class="dv-btn" id="tpl-new">Новый конструктор</button>
+          <button type="button" class="dv-btn dv-btn-primary" data-go="import">Загрузить файл</button>
+        </div>
+      </div>
+      <ul class="dv-list" id="templates-list"></ul>
+      <div class="dv-empty" id="templates-empty" hidden>Шаблонов пока нет.</div>
+    </section>
+
+    <section class="dv-screen" id="screen-import">
+      <div class="dv-toolbar">
+        <h2 class="dv-app-title">Импорт в конструктор</h2>
+        <button type="button" class="dv-btn" data-go="templates">К шаблонам</button>
+      </div>
+      <p class="dv-caption">Парсера нет. Выбор типа сразу заполняет конструктор. Дальше пункты правят руками.</p>
+      <p class="dv-open-note">В книге ещё открыто: сканы PDF и плохая нарезка.</p>
+      <div class="dv-row">
+        <button type="button" class="dv-btn dv-btn-primary" data-import="docx">Word</button>
+        <button type="button" class="dv-btn dv-btn-primary" data-import="pdf">PDF</button>
+        <button type="button" class="dv-btn dv-btn-primary" data-import="txt">Текст</button>
+      </div>
+    </section>
+
+    <section class="dv-screen" id="screen-builder">
+      <div class="dv-toolbar">
+        <div>
+          <h2 class="dv-app-title" id="builder-title">Конструктор</h2>
+          <p class="dv-caption">Добавляйте разделы и пункты. Порядок — кнопками вверх и вниз, с клавиатуры тоже.</p>
+        </div>
+        <div class="dv-row">
+          <button type="button" class="dv-btn" data-go="templates">К шаблонам</button>
+          <button type="button" class="dv-btn dv-btn-primary" id="tpl-to-project">Создать проект</button>
+        </div>
+      </div>
+      <div class="dv-field" style="max-width:36rem;margin-bottom:1rem">
+        <label for="builder-name">Название шаблона</label>
+        <input class="dv-input" id="builder-name">
+      </div>
+      <div id="builder-root"></div>
+      <div class="dv-row" style="margin-top:0.9rem">
+        <button type="button" class="dv-btn" id="builder-add-sec">Добавить раздел</button>
+      </div>
+    </section>
+
+    <section class="dv-screen" id="screen-ours">
+      <div class="dv-toolbar">
+        <div>
+          <h2 class="dv-app-title" id="ours-title">Проект</h2>
+          <p class="dv-caption" id="ours-meta"></p>
+        </div>
+        <button type="button" class="dv-btn dv-btn-primary" id="btn-print" hidden>Печать HTML</button>
+      </div>
+      <p class="dv-open-note" id="snap-note" hidden>Шаблон с тех пор изменили. Текст этого проекта не меняется. В книге ещё открыто: полный состав снимка.</p>
+      <p class="dv-caption" id="snap-row" hidden style="margin-bottom:0.8rem"><a href="#ours" id="tpl-new-from-project">Создать новый проект из шаблона</a></p>
+      <div class="dv-field" style="max-width:28rem;margin-bottom:0.8rem" id="org-pick-wrap">
+        <label for="org-pick">Реквизиты своей стороны в договоре</label>
+        <select class="dv-input" id="org-pick"></select>
+        <span class="dv-open-note">В книге ещё открыто: кто выбирает реквизиты контрагента.</span>
+      </div>
+      <div class="dv-linkbox" id="link-box" style="margin-bottom:1rem"></div>
+      <div class="dv-review" id="review-bar-ours"></div>
+      <div id="doc-ours"></div>
+    </section>
+
+    <section class="dv-screen" id="screen-link">
+      <p class="dv-empty" id="link-dead" hidden>Ссылка отозвана или ещё не выдана. Документа здесь нет.</p>
+      <div class="dv-review" id="review-bar-link" hidden></div>
+      <div id="doc-link"></div>
+    </section>
+
+    <section class="dv-screen" id="screen-print">
+      <div class="dv-toolbar">
+        <p class="dv-caption">HTML для печати. Панелей пункта нет.</p>
+        <button type="button" class="dv-btn" id="print-back">К согласованию</button>
+      </div>
+      <div id="doc-print"></div>
+    </section>
+
+    <aside class="dv-proto" id="proto-bar">
+      <p class="dv-proto-title">Режим прототипа</p>
+      <p class="dv-caption">Это не функции продукта. Нужны, чтобы проверить макет.</p>
+      <div class="dv-row">
+        <button type="button" class="dv-btn" id="toggle-dash">Пустой дашборд</button>
+        <button type="button" class="dv-btn" id="link-open">Открыть как контрагент</button>
+        <button type="button" class="dv-btn" id="mail-confirm">Подтвердить почту</button>
+        <button type="button" class="dv-btn" id="proto-back-own">К своей стороне</button>
+      </div>
+    </aside>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

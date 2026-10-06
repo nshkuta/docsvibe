@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>План макета — Согласование договоров</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../book.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="../index.html">Согласование договоров</a>
+      <p class="brand-note">Продуктовая книга</p>
+      <details class="menu">
+        <summary>Разделы</summary>
+        <nav>
+          <a href="../index.html">Оглавление</a>
+          <a href="index.html">Как устроен продукт сейчас</a>
+          <a href="statusy.html">Статусы</a>
+          <a href="plan.html" aria-current="page">План макета</a>
+          <a href="../questions/index.html">Вопросы до работы</a>
+          <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+          <a href="../vid/nabor.html">UX-кит</a>
+          <a href="../vid/obrazec.html">Прототип</a>
+        </nav>
+      </details>
+      <nav>
+        <a href="../index.html">Оглавление</a>
+        <a href="index.html">Как устроен продукт сейчас</a>
+        <a href="statusy.html">Статусы</a>
+        <a href="plan.html" aria-current="page">План макета</a>
+        <a href="../questions/index.html">Вопросы до работы</a>
+        <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+        <a href="../vid/nabor.html">UX-кит</a>
+        <a href="../vid/obrazec.html">Прототип</a>
+      </nav>
+    </aside>
+    <main class="page">
+      <p class="kicker">Книга · план макета</p>
+      <h1>План макета DocsVibe</h1>
+      <p class="lead">Зачем эта страница: зафиксировать ресёрч и порядок работ. По ней закрывают вопросы в книге, затем обновляют UX-кит и прототип. Это не код продукта.</p>
+
+      <h2>1. Зачем этот план</h2>
+      <p>Макет должен читать договор одним потоком, в сине-белой гамме, без вида «нейрослопа». Навигация своей стороны сквозная. Главная своей стороны — дашборд, не сетка графиков. Прототип открывается и вне книги. Внутреннее обсуждение и несколько людей у стороны в первой версии нет.</p>
+
+      <h2>2. Ресёрч в сети</h2>
+      <p>Метод. Оси поиска: спокойный продукт 2026 года; что делает интерфейс нейрослопным; UX длинного документа и рецензии; сине-белый B2B; регистрация и письмо; дашборд как очередь работы; формы юрлица; конструктор с клавиатуры; шаблон и экземпляр договора. Цитата только со страницы, которую открывали. Сниппет поиска фактом не считается.</p>
+      <p>Запросы: AI slop UI 2026; UX design trends 2026 calm; inline comments document review; CLM contract negotiation UX; IBM Carbon color; GitHub Primer color; NN/g AI prototyping; NN/g email verification; NN/g dashboard; NN/g password; GOV.UK form structure; WAI listbox reorder; CLM template instance.</p>
+      <p>Отброшено. <a href="https://elements.envato.com/learn/ux-ui-design-trends">Envato, тренды UX/UI</a> — Cloudflare, текст не прочитан. Sailop и Briskly целиком не открывали, в выводы не входят.</p>
+      <p>Открытые источники и зачем они:</p>
+      <ul>
+        <li><a href="https://www.nngroup.com/articles/ai-prototyping/">NN/G, AI prototyping</a> — без явного визуального языка экраны шаблонные и «хороши издалека».</li>
+        <li><a href="https://www.uxmatters.com/mt/archives/2026/01/the-hidden-geometry-of-calm-screens.php">UXmatters, Calm screens</a> — спокойствие от сетки и выравнивания, не от пустых полей.</li>
+        <li><a href="https://www.925studios.co/blog/ai-slop-web-design-guide">925 Studios, AI slop web design</a> — признаки слопа: Inter по умолчанию, фиолетово-синий градиент, одинаковые карточки.</li>
+        <li><a href="https://smoothui.dev/blog/ai-design-slop">SmoothUI, AI design slop</a> — стекло, одинаковая сетка карточек, bounce на наведении.</li>
+        <li><a href="https://www.carbondesignsystem.com/building-blocks/foundations/color/overview">Carbon, цвет</a> — белый и серый слой, синий как действие, токены по роли.</li>
+        <li><a href="https://www.ibm.com/standards/carbon/guidelines/expressive-styling/overview">Carbon, expressive</a> — 16px для чтения, 14px для хрома продукта. Договор не маркетинговый hero.</li>
+        <li><a href="https://primer.style/foundations/color">Primer, цвет</a> — белая бумага, inset-серый, акцент около <code>#0969da</code>, не фиолетовый градиент.</li>
+        <li><a href="https://support.google.com/docs/answer/6033474">Google Docs, предложения</a> — правка в потоке текста.</li>
+        <li><a href="https://support.microsoft.com/en-us/office/using-modern-comments-in-word-edc6ae71-0a2d-49fe-8faa-986f1e48136a">Word, современные комментарии</a> — комментарий у якоря в тексте, не карточка всего документа.</li>
+        <li><a href="https://majkowska.design/case-study/helping-users-negotiate-and-collaborate-more-effectively-in-contractbook">Contractbook, кейс</a> — без правки в продукте люди уходят в Word; нужны предложение правки и комментарий.</li>
+        <li><a href="https://documentation.conga.com/en/clm-for-advantage-platform/preview/clm-for-users/contract-details-and-actions/comparing-contract-documents">Conga, сравнение</a> — отличия смотрят в одном просмотрщике, разметка в тексте.</li>
+        <li><a href="https://www.lazarev.agency/cases/kontrakiq">Kontrak IQ</a> — документ, комментарии и статус пункта вместе. Дашборды портфеля с графиками в макет не копируем.</li>
+        <li><a href="https://www.nngroup.com/articles/checklist-registration-login/">NN/G, регистрация и вход</a> — на форме только почта и пароль; пароль можно показать; поля не дублировать. Письмо-подтверждение у NN/G — трение. Заказчик письмо выбрал: в макете экран «письмо отправлено» и повторная отправка, не SMS и не отмена факта.</li>
+        <li><a href="https://www.nngroup.com/articles/password-creation/">NN/G, создание пароля</a> — требования к паролю видны сразу. Есть «показать пароль».</li>
+        <li><a href="https://www.nngroup.com/articles/dashboards-preattentive/">NN/G, дашборды</a> — дашборд в статье это графики «одним взглядом». У нас очередь работы. Главное — список открытых проектов и счётчик правок, не сетка одинаковых KPI-карточек.</li>
+        <li><a href="https://www.gov.uk/service-manual/design/form-structure">GOV.UK, структура форм</a> — спрашивать только нужное. Ветвление: человек отвечает на вопросы своей формы.</li>
+        <li><a href="https://design-system.service.gov.uk/components/radios/">GOV.UK, радиокнопки</a> — сначала ОПФ. Поля только выбранной формы. Сложный набор не прятать одним раскрытием.</li>
+        <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-rearrangeable/">WAI APG, список с порядком</a> — кнопки вверх и вниз и клавиатура. Не только перетаскивание.</li>
+        <li><a href="https://documentation.conga.com/en/clm-for-salesforce/current/clm-for-users/contract-document-versioning">Conga, версии документа</a> — экземпляр договора помнит шаблон на момент создания. Правка шаблона живой договор не переписывает.</li>
+      </ul>
+      <p>Вывод. Согласование — столбец бумаги. Панель пункта держится номера. Дашборд — список дел, не BI. Форма реквизитов начинается с ОПФ. Конструктор меняет порядок с клавиатуры. Проект — снимок шаблона. Контрагент без дашборда, шаблонов, настроек и реквизитов.</p>
+
+      <h2>3. Поиск качественного визуала</h2>
+      <p>Метод. Сравнивали не лендинги SaaS, а системы, где синий — ссылка, кнопка или фокус, а фон — бумага: Carbon White, Primer light, поле документа в Docs и Word. Не референс: три карточки, indigo-gradient, стекло.</p>
+      <p>Токены ниже — гипотеза до записи в UX-кит. После кита они становятся образцом вида продукта.</p>
+      <ul>
+        <li>фон <code>#f6f8fa</code>, поверхность <code>#ffffff</code>, текст <code>#1f2328</code>, вторичный <code>#59636e</code>;</li>
+        <li>акцент <code>#0969da</code> — не Tailwind <code>#2563EB</code> и не фиолетовый;</li>
+        <li>линия <code>#d1d9e0</code>, ошибка <code>#cf222e</code>, успех <code>#1a7f37</code>;</li>
+        <li>хром — системный или IBM Plex Sans; текст договора — антиква вроде Source Serif, не один Inter;</li>
+        <li>у листа радиус 0 или очень маленький; теней почти нет.</li>
+      </ul>
+      <p>Чеклист против нейрослопа:</p>
+      <ul>
+        <li>нет фиолетово-синего градиента и стеклянных пятен;</li>
+        <li>нет сетки одинаковых карточек пунктов;</li>
+        <li>нет нарисованного логотипа и стоковых картинок;</li>
+        <li>нет bounce на наведении;</li>
+        <li>синий не заливает фон;</li>
+        <li>тексты короткие, без канцелярита и «премиальности»;</li>
+        <li>дашборд не сетка одинаковых KPI-карточек.</li>
+      </ul>
+      <p>Сначала большой экран. Узкий экран не ломает чтение и основные действия.</p>
+
+      <h2>4. Что уже решил заказчик</h2>
+      <p>Ответы записаны в вопросы и в «Как устроен продукт сейчас». Ниже — что закрыто этим объёмом:</p>
+      <ul>
+        <li><a href="../questions/index.html#q-vhod">Вход</a> — своя сторона регистрируется почтой, подтверждает письмо, затем входит почтой и паролем. Контрагент — по ссылке-ключу.</li>
+        <li>Главная после входа — дашборд: открытые проекты, сколько правок на согласовании, сколько новых редакций. Редакция новая, пока человек не открыл пункт.</li>
+        <li>Настройки: имя в интерфейсе и смена пароля.</li>
+        <li>Реквизиты: несколько организаций, от имени которых человек подписывает договор. ОПФ: физлицо, ИП, ООО. Должность и основание. Это текст в договоре, не электронная подпись.</li>
+        <li><a href="../questions/index.html#q-punkt">Пункт</a> — нумерованный блок. Конструктор в первой версии рисуем: добавить, удалить, менять порядок разделов и пунктов.</li>
+        <li><a href="../questions/index.html#q-fajl">Файл</a> — Word, PDF или текст заполняет конструктор. Человек правит нарезку там.</li>
+        <li>Проект создаётся из готового шаблона. В проекте снимок текста на тот момент. Поздняя правка шаблона проект не меняет.</li>
+        <li><a href="../questions/index.html#q-kto-gruzit">Первая версия</a> — своя сторона. Это снимок шаблона, не загрузка «сбоку» контрагентом.</li>
+        <li><a href="../questions/index.html#q-ssilka">Ссылка-ключ</a> — виден весь документ. Нет дашборда, шаблонов, настроек и реквизитов. Имена людей своей стороны не решены.</li>
+        <li><a href="../questions/index.html#q-itog">Итог</a> — ставит своя сторона, когда все пункты согласованы. Кнопка есть всегда, при открытых пунктах неактивна.</li>
+        <li><a href="../questions/index.html#q-otzyv">Ссылка</a> — выдача, отзыв, повторная выдача.</li>
+        <li><a href="../questions/index.html#q-vnutri">Внутреннее</a> и <a href="../questions/index.html#q-ljudi">люди</a> — вне первой версии.</li>
+        <li><a href="../questions/index.html#q-posle-itoga">После итога</a> — договор нельзя править, доступна печать согласованного текста.</li>
+        <li><a href="../questions/index.html#q-status-punkta">Пункт</a> — согласован без непринятых редакций; иначе ждёт ответа или спор. Кнопка «Согласен» у обеих сторон.</li>
+        <li><a href="../questions/index.html#q-podpisi">Подписи сторон</a> — «Вы» и название другой стороны из реквизитов.</li>
+        <li><a href="../questions/index.html#q-vizit">Новое</a> — редакция новая, пока человек не открыл этот пункт.</li>
+        <li><a href="statusy.html">Статусы</a> — пункт и документ, что видит каждая сторона.</li>
+      </ul>
+
+      <h2>5. Что ещё блокирует</h2>
+      <p>Открытый вопрос стоп для кода по теме. Макет может показать правдоподобный вариант с пометкой «в книге ещё открыто».</p>
+      <ul>
+        <li><a href="../questions/index.html#q-hranenie">Где хранить документ</a> — когда пойдём от макета к коду.</li>
+        <li><a href="../questions/index.html#q-pochta">До подтверждения почты</a> и повтор письма.</li>
+        <li><a href="../questions/index.html#q-imya">Видно ли отображаемое имя контрагенту</a> — связано с открытым куском про имена в ссылке.</li>
+        <li><a href="../questions/index.html#q-rekvizity-polya">Точный перечень полей реквизитов</a>. В макете — рабочий набор, это не закон.</li>
+        <li><a href="../questions/index.html#q-rekvizity-proekt">Кто в проекте выбирает реквизиты сторон</a>.</li>
+        <li><a href="../questions/index.html#q-import">Сканы PDF и плохая нарезка</a>.</li>
+        <li><a href="../questions/index.html#q-snimok">Что копируется в снимок проекта</a>.</li>
+        <li><a href="../questions/index.html#q-pisma">Кто и когда получает письма</a>.</li>
+        <li><a href="../questions/index.html#q-parol">Как восстановить пароль</a>.</li>
+        <li><a href="../questions/index.html#q-ssylka-srok">Срок ссылки-ключа</a> и пересылка коллеге.</li>
+        <li><a href="../questions/index.html#q-komment-novyy">Новый комментарий</a> при уже существующем.</li>
+        <li><a href="../questions/index.html#q-proekt-posle">Куда уходит проект после утверждения</a>.</li>
+      </ul>
+
+      <h2>6. Шаги этой работы</h2>
+      <ol>
+        <li>Записать новый user-flow в устройство продукта и вопросы. Готово, когда закрытые ответы не спорят со старым текстом.</li>
+        <li>Дописать ресёрч на этой странице. Готово, когда ссылки ведут на открытые страницы и есть выводы для экранов.</li>
+        <li>Дополнить UX-кит: дашборд-список, форма ОПФ, конструктор с порядком. Файлы <a href="../vid/nabor.html">nabor.html</a> и product.css.</li>
+        <li>Кликабельный прототип <a href="../vid/app.html">vid/app.html</a>. Готово, когда проходятся регистрация, дашборд, настройки, реквизиты, конструктор, импорт-мок, проект-снимок, согласование и ссылка контрагента.</li>
+      </ol>
+      <p>Не делать на этих шагах: код приложения вне книги, беклог, коммит, несколько людей, внутреннее обсуждение, электронная подпись.</p>
+
+      <h2>7. Вне объёма</h2>
+      <p>Хранилище. Электронная подпись. Формальные цепочки. Несколько пользователей у стороны. Внутреннее обсуждение.</p>
+
+      <nav class="pager">
+        <a href="statusy.html">Назад · Статусы</a>
+        <a class="next" href="../questions/index.html">Дальше · Вопросы до работы</a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>
