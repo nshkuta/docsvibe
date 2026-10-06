@@ -172,6 +172,48 @@
   border-color: var(--dv-danger);
 }
 
+.dv-pill-wait {
+  color: var(--dv-muted);
+  border-color: var(--dv-line);
+}
+
+.dv-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dv-btn:disabled:hover {
+  background: var(--dv-surface);
+}
+
+.dv-btn-primary:disabled:hover {
+  background: var(--dv-accent);
+}
+
+.dv-review {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  margin-bottom: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  background: var(--dv-surface);
+  border: 1px solid var(--dv-line);
+}
+
+.dv-review-line {
+  margin: 0;
+  flex: 1 1 12rem;
+  font-size: 0.88rem;
+}
+
+.dv-review-why {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--dv-muted);
+  font-size: 0.82rem;
+}
+
 .dv-nav {
   display: flex;
   flex-wrap: wrap;
@@ -211,8 +253,14 @@
   color: var(--dv-ink);
 }
 
-.dv-nav .dv-nav-exit {
+.dv-nav .dv-nav-user {
   margin-left: auto;
+  font-size: 0.82rem;
+  color: var(--dv-muted);
+}
+
+.dv-nav .dv-nav-exit {
+  margin-left: 0;
 }
 
 .dv-btn {
@@ -232,6 +280,7 @@
 
 .dv-btn:focus-visible,
 .dv-input:focus-visible,
+.dv-area:focus-visible,
 .dv-nav a:focus-visible,
 .dv-clause-tools button:focus-visible {
   outline: 2px solid var(--dv-focus);
@@ -474,6 +523,10 @@
   margin-bottom: 0.15rem;
 }
 
+.dv-clause-body .dv-pill {
+  margin-top: 0.45rem;
+}
+
 .dv-discuss {
   grid-column: 1 / -1;
   padding: 0.55rem 0 0;
@@ -541,6 +594,34 @@
   padding: 0.7rem 1rem;
   background: var(--dv-surface);
   border-bottom: 1px solid var(--dv-line);
+}
+
+.dv-proto {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  margin-top: 1.2rem;
+  padding: 0.7rem 1rem 0.85rem;
+  background: #eaeef2;
+  border-top: 1px dashed #656d76;
+}
+
+.dv-proto-title {
+  margin: 0 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #656d76;
+}
+
+.dv-proto .dv-caption {
+  margin: 0 0 0.55rem;
+}
+
+.dv-kit-pad .dv-proto {
+  position: static;
+  margin-top: 0;
 }
 
 .dv-screen {
@@ -615,9 +696,67 @@ body.dv-standalone .dv-app {
   min-height: 100vh;
 }
 
+.dv-form {
+  max-width: 28rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.dv-check {
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.dv-fieldset {
+  border: 1px solid var(--dv-line);
+  background: var(--dv-surface);
+  padding: 0.7rem 0.85rem 0.85rem;
+  margin: 0;
+}
+
+.dv-fieldset legend {
+  padding: 0 0.25rem;
+  font-size: 0.82rem;
+  color: var(--dv-muted);
+}
+
+.dv-open-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  color: var(--dv-muted);
+}
+
+.dv-builder-sec {
+  margin: 0 0 1.1rem;
+  padding: 0.85rem 0.9rem 1rem;
+  background: var(--dv-surface);
+  border: 1px solid var(--dv-line);
+}
+
+.dv-builder-head {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.dv-builder-row {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--dv-line);
+}
+
+.dv-builder-row .dv-area {
+  min-height: 4rem;
+}
+
 .dv-frame {
   width: 100%;
-  min-height: 42rem;
+  min-height: 48rem;
   border: 1px solid var(--dv-line, #d1d9e0);
   background: #f6f8fa;
 }
@@ -628,6 +767,7 @@ body.dv-standalone .dv-app {
     grid-template-columns: 1fr;
   }
 
+  .dv-nav .dv-nav-user,
   .dv-nav .dv-nav-exit {
     margin-left: 0;
   }
