@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UX-кит — DocsVibe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../book.css">
+  <link rel="stylesheet" href="product.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="../index.html">Согласование договоров</a>
+      <p class="brand-note">Продуктовая книга</p>
+      <details class="menu">
+        <summary>Разделы</summary>
+        <nav>
+          <a href="../index.html">Оглавление</a>
+          <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+          <a href="../implementation/statuses.html">Статусы</a>
+          <a href="../implementation/plan.html">План макета</a>
+          <a href="../questions/index.html">Вопросы до работы</a>
+          <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+          <a href="kit.html" aria-current="page">UX-кит</a>
+          <a href="prototype.html">Прототип</a>
+        </nav>
+      </details>
+      <nav>
+        <a href="../index.html">Оглавление</a>
+        <a href="../implementation/index.html">Как устроен продукт сейчас</a>
+        <a href="../implementation/statuses.html">Статусы</a>
+        <a href="../implementation/plan.html">План макета</a>
+        <a href="../questions/index.html">Вопросы до работы</a>
+        <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
+        <a href="kit.html" aria-current="page">UX-кит</a>
+        <a href="prototype.html">Прототип</a>
+      </nav>
+    </aside>
+    <main class="page page-kit">
+      <p class="kicker">Книга · раздел 05</p>
+      <h1>UX-кит</h1>
+      <p class="lead">Образцы вида продукта DocsVibe. Это не экраны приложения и не разрешение писать код продукта. Палитра книги сюда не переносится. Название — текст, без логотипа.</p>
+
+      <div class="dv dv-kit-pad">
+        <section class="dv-block">
+          <h3>Токены</h3>
+          <p class="dv-caption">Образец вида продукта. Синий — действие и ссылка. Фон — бумага. Без градиента и стекла. Радиус 0. Теней почти нет.</p>
+          <div class="dv-row">
+            <div class="dv-swatch"><i style="background:#f6f8fa"></i><span>фон #f6f8fa</span></div>
+            <div class="dv-swatch"><i style="background:#ffffff"></i><span>поверхность #ffffff</span></div>
+            <div class="dv-swatch"><i style="background:#1f2328"></i><span>текст #1f2328</span></div>
+            <div class="dv-swatch"><i style="background:#59636e"></i><span>вторичный #59636e</span></div>
+            <div class="dv-swatch"><i style="background:#0969da"></i><span>акцент #0969da</span></div>
+            <div class="dv-swatch"><i style="background:#d1d9e0"></i><span>линия #d1d9e0</span></div>
+            <div class="dv-swatch"><i style="background:#cf222e"></i><span>ошибка #cf222e</span></div>
+            <div class="dv-swatch"><i style="background:#1a7f37"></i><span>успех #1a7f37</span></div>
+          </div>
+          <div class="dv-type-sample" style="margin-top:0.7rem">
+            <strong>Хром экрана · IBM Plex Sans</strong>
+            <em>Текст договора · Source Serif. Столбец бумаги, не сетка карточек. Не один Inter.</em>
+          </div>
+          <p class="dv-caption" style="margin-top:0.8rem">Чеклист против нейрослопа: нет фиолетово-синего градиента и стекла; нет сетки одинаковых карточек пунктов; нет bounce на наведении; синий не заливает фон; тексты короткие; дашборд не сетка KPI.</p>
+          <p class="dv-caption" style="margin-top:0.8rem">Отступ обычный и большой:</p>
+          <div class="dv-space-bar"><b></b><b class="lg"></b></div>
+          <p class="dv-caption" style="margin-top:0.8rem">Линия</p>
+          <div class="dv-line-sample"></div>
+          <span class="dv-focus-sample">фокус клавиатуры</span>
+          <p class="dv-caption" style="margin-top:0.8rem">Статус пункта. Цвет только там, где от зрителя нужно действие.</p>
+          <span class="dv-status">согласован</span>
+          <span class="dv-pill dv-pill-action">ждёт нас</span>
+          <span class="dv-status dv-status-muted">ждёт другую сторону</span>
+          <span class="dv-pill dv-pill-err">спор</span>
+          <span class="dv-status">утверждён</span>
+        </section>
+
+        <section class="dv-block">
+          <h3>Навигация своей стороны</h3>
+          <p class="dv-caption">Вписана в верх лейаута. DocsVibe — текст. Контрагент этой полосы не видит. Главная — дашборд.</p>
+        </section>
+      </div>
+
+      <div class="dv" style="margin-top:0; border-top:0">
+        <nav class="dv-nav" aria-label="Своя сторона">
+          <span class="dv-nav-name">DocsVibe</span>
+          <a href="#kit-nav" aria-current="page">Дашборд</a>
+          <a href="#kit-nav">Шаблоны</a>
+          <a href="#kit-nav">Реквизиты</a>
+          <a href="#kit-nav">Настройки</a>
+          <span class="dv-nav-user">Ириса Кленова</span>
+          <a class="dv-nav-exit" href="#kit-nav">Выход</a>
+        </nav>
+        <div class="dv-kit-pad">
+          <section class="dv-block" id="kit-nav">
+            <h3>Кнопки и поля</h3>
+            <p class="dv-caption">Главная — заливка акцентом. Обычная — контур на белом. Опасная — красный контур. Поле — светлый фон и рамка, не путать с кнопкой.</p>
+            <div class="dv-row">
+              <button type="button" class="dv-btn dv-btn-primary">Войти</button>
+              <button type="button" class="dv-btn">Отмена</button>
+              <button type="button" class="dv-btn dv-btn-ghost">Закрыть</button>
+              <button type="button" class="dv-btn dv-btn-danger">Отключить ссылку</button>
+            </div>
+            <div class="dv-row" style="margin-top:0.85rem">
+              <div class="dv-field">
+                <label for="kit-mail">Почта</label>
+                <input class="dv-input" id="kit-mail" type="email" value="iris@sinyaya-polka.test" autocomplete="off">
+              </div>
+              <div class="dv-field dv-field-err">
+                <label for="kit-pass">Пароль</label>
+                <input class="dv-input" id="kit-pass" type="password" value="demo" autocomplete="off">
+                <span class="dv-hint">Неверная почта или пароль</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Сообщения в интерфейсе</h3>
+            <p class="dv-caption">Подтверждения и ошибки — часть экрана. Не окна браузера.</p>
+            <div class="dv-banner dv-banner-ok" role="status">Ссылка скопирована.</div>
+            <div class="dv-banner dv-banner-err" role="alert">Не удалось отключить ссылку. Попробуйте ещё раз.</div>
+            <div class="dv-confirm" role="group" aria-label="Подтверждение">
+              <p class="dv-confirm-text">Отключить ссылку? Контрагент по старому адресу документ не откроет.</p>
+              <div class="dv-row">
+                <button type="button" class="dv-btn dv-btn-danger">Отключить</button>
+                <button type="button" class="dv-btn">Отмена</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Дашборд</h3>
+            <p class="dv-caption">Список открытых проектов и счётчик правок по статусам пунктов, не по комментариям. Не сетка KPI-карточек.</p>
+            <p class="dv-caption">Правок на согласовании: 5. Новых с прошлого визита: 1.</p>
+            <ul class="dv-list">
+              <li>
+                <a href="#kit-doc">
+                  <span>Поставка комплектующих · СЯ-184</span>
+                  <span class="dv-list-meta">5 правок на согласовании · ждут вас 2 · спор 1</span>
+                </a>
+              </li>
+              <li>
+                <a href="#kit-doc">
+                  <span>Неразглашение · «Тихая Лампа»</span>
+                  <span class="dv-list-meta">готов к утверждению · новое</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section class="dv-block">
+            <h3>Форма реквизитов</h3>
+            <p class="dv-caption">Сначала ОПФ. Поля только выбранной формы. Одна колонка.</p>
+            <fieldset class="dv-fieldset">
+              <legend>Организационно-правовая форма</legend>
+              <label class="dv-check"><input type="radio" name="kit-opf" checked> ООО</label>
+              <label class="dv-check"><input type="radio" name="kit-opf"> ИП</label>
+              <label class="dv-check"><input type="radio" name="kit-opf"> Физлицо</label>
+            </fieldset>
+            <div class="dv-field" style="margin-top:0.7rem">
+              <label for="kit-org">Название</label>
+              <input class="dv-input" id="kit-org" value="ООО «Синяя Полка»" autocomplete="off">
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Конструктор</h3>
+            <p class="dv-caption">Раздел и пункты. Порядок — кнопками вверх и вниз, не только мышью.</p>
+            <div class="dv-builder-sec">
+              <div class="dv-builder-head">
+                <label>Раздел 1<input class="dv-input" value="Предмет договора" autocomplete="off"></label>
+              </div>
+              <div class="dv-builder-row">
+                <span class="dv-num">1.1</span>
+                <textarea class="dv-area">Поставщик передаёт комплектующие по спецификации № ЛЩ-12.</textarea>
+                <div class="dv-row">
+                  <button type="button" class="dv-btn">Вверх</button>
+                  <button type="button" class="dv-btn">Вниз</button>
+                  <button type="button" class="dv-btn dv-btn-danger">Удалить</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Список и пустое состояние</h3>
+            <ul class="dv-list">
+              <li>
+                <a href="#kit-doc">
+                  <span>Договор поставки</span>
+                  <span class="dv-list-meta">шаблон</span>
+                </a>
+              </li>
+              <li>
+                <a href="#kit-doc">
+                  <span>Соглашение о неразглашении</span>
+                  <span class="dv-list-meta">шаблон</span>
+                </a>
+              </li>
+            </ul>
+            <div class="dv-empty" style="margin-top:0.7rem">Проектов пока нет.</div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Ссылка-ключ</h3>
+            <p class="dv-caption">Выдача, отключение, повтор. После отключения старый адрес не открывает документ.</p>
+            <div class="dv-linkbox">
+              <span class="dv-pill dv-pill-ok">ссылка активна</span>
+              <code>https://docsvibe.example/k/q3n8-veta-91</code>
+              <div class="dv-row">
+                <button type="button" class="dv-btn">Скопировать</button>
+                <button type="button" class="dv-btn dv-btn-danger">Отключить</button>
+              </div>
+            </div>
+            <div class="dv-linkbox" style="margin-top:0.7rem">
+              <span class="dv-pill dv-pill-err">ссылка отключена</span>
+              <p class="dv-caption" style="margin:0.45rem 0 0.7rem">Контрагент по старому адресу документ не откроет.</p>
+              <button type="button" class="dv-btn dv-btn-primary">Выдать снова</button>
+            </div>
+          </section>
+
+          <section class="dv-block" id="kit-doc">
+            <h3>Экран согласования</h3>
+            <p class="dv-caption">На широком экране: сверху статус, слева оглавление, в центре договор, справа ссылка, реквизиты и обсуждение. У пункта: номер, текст, редакции под текстом, кнопки. На телефоне — строка сверху, договор сразу, снизу прогресс, действия в шторке. Зачёркнутого в тексте нет.</p>
+            <div class="dv-review-shell">
+              <div class="dv-review">
+                <span class="dv-status dv-status-muted">на согласовании</span>
+                <p class="dv-review-line">Согласовано 9 из 14, ждут вас 2, ждут другую сторону 2, спор 1</p>
+                <button type="button" class="dv-btn">К следующему открытому</button>
+                <button type="button" class="dv-btn dv-btn-primary" disabled>Утвердить итог</button>
+                <p class="dv-review-why">Нельзя утвердить: открыты 5 пунктов, из них 1 спор.</p>
+              </div>
+              <nav class="dv-toc" aria-label="Оглавление">
+                <p class="dv-toc-title">Разделы</p>
+                <ul class="dv-toc-list">
+                  <li><a class="dv-toc-sec" href="#kit-c-1-1">1. Предмет договора</a></li>
+                  <li><a href="#kit-c-1-1">1.1 <span class="dv-status">согласован</span></a></li>
+                  <li><a href="#kit-c-1-2">1.2 <span class="dv-status dv-status-muted">ждёт другую сторону</span></a></li>
+                  <li><a href="#kit-c-1-7-3">1.7.3 <span class="dv-pill dv-pill-action">ждёт нас</span></a></li>
+                  <li><a href="#kit-c-1-7-4">1.7.4 <span class="dv-pill dv-pill-err">спор</span></a></li>
+                </ul>
+              </nav>
+              <div class="dv-doc">
+                <div class="dv-doc-head">
+                  <h2>Договор поставки № СЯ-184</h2>
+                  <div class="dv-doc-meta">
+                    <span>г. Северск-на-Волге</span>
+                    <span>12 марта 2026 г.</span>
+                  </div>
+                </div>
+                <h3 class="dv-sec">1. Предмет договора</h3>
+
+                <article class="dv-clause" id="kit-c-1-1">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.1</span>
+                      <div class="dv-clause-text">
+                        <p>Поставщик передаёт, покупатель принимает комплектующие по спецификации № ЛЩ-12, которая является приложением и частью договора.</p>
+                        <span class="dv-status">согласован</span>
+                      </div>
+                    </div>
+                    <div class="dv-clause-actions">
+                      <button type="button" class="dv-btn">Ответить</button>
+                      <button type="button" class="dv-btn">Предложить свою формулировку</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dv-clause is-active" id="kit-c-1-2">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.2</span>
+                      <div class="dv-clause-text">
+                        <p>Комплектующие предназначены для сборки стендов «Тихая Лампа» на площадке покупателя.</p>
+                        <span class="dv-status dv-status-muted">ждёт другую сторону</span>
+                      </div>
+                    </div>
+                    <div class="dv-rev dv-rev-ours">
+                      <p class="dv-rev-who">Вы предложили</p>
+                      <p class="dv-rev-body">Комплектующие предназначены для сборки стендов «Тихая Лампа» на площадке покупателя. Площадка — цех № 4 товарищества «Синяя Полка», без субаренды.</p>
+                    </div>
+                    <div class="dv-clause-actions">
+                      <button type="button" class="dv-btn" aria-pressed="true">Ответить</button>
+                      <button type="button" class="dv-btn">Предложить свою формулировку</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dv-clause" id="kit-c-1-3">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.3</span>
+                      <div class="dv-clause-text">
+                        <p>Срок поставки — 30 календарных дней с даты подписания спецификации.</p>
+                        <span class="dv-status dv-status-muted">правка</span>
+                      </div>
+                    </div>
+                    <div class="dv-rev-form">
+                      <div class="dv-field">
+                        <label for="kit-rev-text">Своя формулировка</label>
+                        <textarea class="dv-area" id="kit-rev-text">Срок поставки — 30 календарных дней с даты подписания спецификации.</textarea>
+                      </div>
+                      <div class="dv-field">
+                        <label for="kit-rev-note">Пояснение</label>
+                        <textarea class="dv-area dv-area-note" id="kit-rev-note">Нужен запас на таможню.</textarea>
+                      </div>
+                      <div class="dv-row">
+                        <button type="button" class="dv-btn dv-btn-primary">Отправить</button>
+                        <button type="button" class="dv-btn">Отмена</button>
+                      </div>
+                    </div>
+                    <div class="dv-clause-actions">
+                      <button type="button" class="dv-btn">Ответить</button>
+                      <button type="button" class="dv-btn" aria-pressed="true">Предложить свою формулировку</button>
+                    </div>
+                  </div>
+                </article>
+
+                <h3 class="dv-sec">1.7. Комплектность</h3>
+
+                <article class="dv-clause needs-you" id="kit-c-1-7-3">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.7.3</span>
+                      <div class="dv-clause-text">
+                        <p>В каждый ящик вкладывается паспорт изделия на русском языке и схема распиновки.</p>
+                        <span class="dv-pill dv-pill-action">ждёт нас</span>
+                      </div>
+                    </div>
+                    <div class="dv-rev dv-rev-theirs dv-rev-new">
+                      <p class="dv-rev-who">Лазурный склад предлагает <span class="dv-rev-badge">новое</span></p>
+                      <p class="dv-rev-body">В каждый ящик вкладывается паспорт изделия на русском или английском языке, по запросу покупателя, и схема распиновки.</p>
+                    </div>
+                    <div class="dv-clause-actions">
+                      <button type="button" class="dv-btn">Ответить</button>
+                      <button type="button" class="dv-btn">Предложить свою формулировку</button>
+                      <button type="button" class="dv-btn dv-btn-primary">Согласен</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="dv-clause needs-you" id="kit-c-1-7-4">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.7.4</span>
+                      <div class="dv-clause-text">
+                        <p>Упаковка должна защищать изделие от влаги и ударов при перевозке.</p>
+                        <span class="dv-pill dv-pill-err">спор</span>
+                      </div>
+                    </div>
+                    <div class="dv-rev dv-rev-ours">
+                      <p class="dv-rev-who">Вы предложили</p>
+                      <p class="dv-rev-body">Упаковка должна защищать изделие от влаги и ударов при перевозке. Допустима только заводская тара поставщика.</p>
+                    </div>
+                    <div class="dv-rev dv-rev-theirs">
+                      <p class="dv-rev-who">Лазурный склад предлагает</p>
+                      <p class="dv-rev-body">Упаковка должна защищать изделие от влаги и ударов при перевозке. Допустима тара перевозчика по согласованию сторон.</p>
+                    </div>
+                    <div class="dv-clause-actions">
+                      <button type="button" class="dv-btn">Ответить</button>
+                      <button type="button" class="dv-btn">Предложить свою формулировку</button>
+                      <button type="button" class="dv-btn dv-btn-primary">Согласен</button>
+                    </div>
+                  </div>
+                </article>
+
+                <p class="dv-caption" style="margin-top:1rem">Когда все пункты согласованы, итог активен. Версия для печати — только после утверждения, только согласованный текст.</p>
+                <div class="dv-row">
+                  <button type="button" class="dv-btn dv-btn-primary">Утвердить итог</button>
+                  <button type="button" class="dv-btn">Версия для печати</button>
+                </div>
+              </div>
+              <aside class="dv-side" aria-label="Контекст">
+                <div class="dv-side-block">
+                  <h3>Ссылка для контрагента</h3>
+                  <div class="dv-linkbox" style="padding:0;border:0">
+                    <span class="dv-pill dv-pill-ok">ссылка активна</span>
+                    <code>https://docsvibe.example/k/q3n8-veta-91</code>
+                    <div class="dv-row">
+                      <button type="button" class="dv-btn">Скопировать</button>
+                      <button type="button" class="dv-btn dv-btn-danger">Отключить</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="dv-side-block">
+                  <h3>Наши реквизиты</h3>
+                  <p class="dv-caption" style="margin:0">ООО «Синяя Полка»</p>
+                </div>
+                <div class="dv-side-block">
+                  <h3>Обсуждение · 1.2</h3>
+                  <div class="dv-discuss-panel">
+                    <div class="dv-comment">
+                      <p class="dv-comment-who">Вы</p>
+                      <p class="dv-comment-body">Цех № 4 — единственное место приёмки.</p>
+                    </div>
+                    <div class="dv-discuss">
+                      <label class="dv-caption" for="kit-c">Ответ. Его видит другая сторона.</label>
+                      <textarea class="dv-area" id="kit-c">Цех № 4 — единственное место приёмки.</textarea>
+                      <div class="dv-row">
+                        <button type="button" class="dv-btn dv-btn-primary">Сохранить</button>
+                        <button type="button" class="dv-btn">Свернуть</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+            <p class="dv-caption" style="margin-top:1rem">На телефоне: строка сверху, договор сразу, полоса снизу, действия в шторке.</p>
+            <div class="dv-kit-phone">
+              <div class="dv-phone-bar">
+                <p class="dv-phone-bar-title">Поставка · СЯ-184</p>
+                <span class="dv-status dv-status-muted">на согласовании</span>
+                <button type="button" class="dv-btn">Меню</button>
+              </div>
+              <div class="dv-welcome-compact" style="display:block;margin:0.55rem 0.7rem 0">
+                <p>Договор от ООО «Синяя Полка». Ждут ответа: 2 пункта.</p>
+              </div>
+              <div class="dv-doc" style="border-radius:0">
+                <article class="dv-clause needs-you is-sheet-open">
+                  <div class="dv-clause-main">
+                    <div class="dv-clause-head">
+                      <span class="dv-num">1.7.3</span>
+                      <div class="dv-clause-text">
+                        <p>В каждый ящик вкладывается паспорт изделия на русском языке и схема распиновки.</p>
+                        <span class="dv-pill dv-pill-action">ждёт нас</span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="dv-sheet dv-kit-phone-sheet is-on">
+                <div class="dv-sheet-handle"></div>
+                <h3 class="dv-sheet-title">Пункт 1.7.3</h3>
+                <div class="dv-clause-actions">
+                  <button type="button" class="dv-btn">Ответить</button>
+                  <button type="button" class="dv-btn">Предложить свою формулировку</button>
+                  <button type="button" class="dv-btn dv-btn-primary">Согласен</button>
+                </div>
+              </div>
+              <div class="dv-phone-progress">
+                <p class="dv-phone-progress-line">9 / 14</p>
+                <button type="button" class="dv-btn">Следующий</button>
+              </div>
+            </div>
+            <div class="dv-welcome" style="margin-top:1rem">
+              <h2>Договор от ООО «Синяя Полка»</h2>
+              <p>Просмотрите пункты, ответьте или предложите свою формулировку. Когда формулировка подходит — нажмите «Согласен».</p>
+              <p class="dv-caption" style="margin:0">Ждут вашего ответа: 2 пункта.</p>
+            </div>
+            <div class="dv-access-closed" style="margin-top:1rem">
+              <h2>Доступ закрыт</h2>
+              <p>Попросите новую ссылку у отправителя.</p>
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Версия для печати</h3>
+            <p class="dv-caption">Документ под подпись: A4, слева поле больше, только итоговый текст, подписи с линией и «М.П.».</p>
+            <div class="dv-print-toolbar">
+              <button type="button" class="dv-btn dv-btn-primary">Распечатать или сохранить PDF</button>
+            </div>
+            <div class="dv-print-doc dv-kit-print">
+              <div class="dv-doc-head">
+                <h2>Договор поставки № СЯ-184</h2>
+                <div class="dv-doc-meta">
+                  <span>г. Северск-на-Волге</span>
+                  <span>12 марта 2026 г.</span>
+                </div>
+              </div>
+              <p class="dv-preamble">ООО «Синяя Полка», далее покупатель, и товарищество «Лазурный склад», далее поставщик, заключили договор о нижеследующем.</p>
+              <h3 class="dv-sec">1. Предмет договора</h3>
+              <article class="dv-clause">
+                <div class="dv-clause-main">
+                  <div class="dv-clause-head">
+                    <span class="dv-num">1.1</span>
+                    <div class="dv-clause-text">
+                      <p>Поставщик передаёт, покупатель принимает комплектующие по спецификации № ЛЩ-12.</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="dv-print-sign">
+                <div class="dv-print-sign-party">
+                  <p><strong>Покупатель</strong></p>
+                  <p>ООО «Синяя Полка»</p>
+                  <div class="dv-print-sign-line"></div>
+                  <div class="dv-print-sign-meta">
+                    <span>Кленова И. С.</span>
+                    <span>М.П.</span>
+                  </div>
+                </div>
+                <div class="dv-print-sign-party">
+                  <p><strong>Поставщик</strong></p>
+                  <p>Товарищество «Лазурный склад»</p>
+                  <div class="dv-print-sign-line"></div>
+                  <div class="dv-print-sign-meta">
+                    <span>Бурелом Ф. П.</span>
+                    <span>М.П.</span>
+                  </div>
+                </div>
+              </div>
+              <p class="dv-print-preview-note">В печати внизу каждой страницы: № СЯ-184 · итоговая редакция от 12 октября 2026 г. и «стр.» с номером</p>
+            </div>
+          </section>
+
+          <section class="dv-block">
+            <h3>Режим прототипа</h3>
+            <p class="dv-caption">По умолчанию одна строка. Пометки «в книге ещё открыто» — по кнопке. Не путать с действиями продукта.</p>
+            <aside class="dv-proto">
+              <div class="dv-proto-head">
+                <p class="dv-proto-title">Режим прототипа</p>
+                <div class="dv-row">
+                  <button type="button" class="dv-btn">Пустой дашборд</button>
+                  <button type="button" class="dv-btn">Открыть как контрагент</button>
+                  <button type="button" class="dv-btn" aria-expanded="false">Открытые вопросы</button>
+                </div>
+              </div>
+            </aside>
+            <aside class="dv-proto is-open" style="margin-top:0.7rem">
+              <div class="dv-proto-head">
+                <p class="dv-proto-title">Режим прототипа</p>
+                <div class="dv-row">
+                  <button type="button" class="dv-btn">Пустой дашборд</button>
+                  <button type="button" class="dv-btn">Открыть как контрагент</button>
+                  <button type="button" class="dv-btn" aria-expanded="true">Скрыть вопросы</button>
+                </div>
+              </div>
+              <div class="dv-proto-extra">
+                <p class="dv-caption">Это не функции продукта. Нужны, чтобы проверить макет.</p>
+                <div class="dv-open-list">
+                  <p class="dv-open-note">В книге ещё открыто: точный перечень полей.</p>
+                  <p class="dv-open-note">В книге ещё открыто: кто выбирает реквизиты контрагента.</p>
+                </div>
+              </div>
+            </aside>
+          </section>
+        </div>
+      </div>
+
+      <p class="note">Кликабельный путь — в прототипе и на отдельной странице без оболочки книги. Код продукта от этих образцов не пишем.</p>
+      <nav class="pager">
+        <a href="../backlog/index.html">Назад · Беклог</a>
+        <a class="next" href="prototype.html">Дальше · Прототип</a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>

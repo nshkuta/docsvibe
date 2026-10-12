@@ -19,23 +19,23 @@
         <nav>
           <a href="../index.html">Оглавление</a>
           <a href="index.html">Как устроен продукт сейчас</a>
-          <a href="statusy.html">Статусы</a>
+          <a href="statuses.html">Статусы</a>
           <a href="plan.html" aria-current="page">План макета</a>
           <a href="../questions/index.html">Вопросы до работы</a>
           <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
-          <a href="../vid/nabor.html">UX-кит</a>
-          <a href="../vid/obrazec.html">Прототип</a>
+          <a href="../ui/kit.html">UX-кит</a>
+          <a href="../ui/prototype.html">Прототип</a>
         </nav>
       </details>
       <nav>
         <a href="../index.html">Оглавление</a>
         <a href="index.html">Как устроен продукт сейчас</a>
-        <a href="statusy.html">Статусы</a>
+        <a href="statuses.html">Статусы</a>
         <a href="plan.html" aria-current="page">План макета</a>
         <a href="../questions/index.html">Вопросы до работы</a>
         <a href="../backlog/index.html">Беклог <span class="tag">пусто</span></a>
-        <a href="../vid/nabor.html">UX-кит</a>
-        <a href="../vid/obrazec.html">Прототип</a>
+        <a href="../ui/kit.html">UX-кит</a>
+        <a href="../ui/prototype.html">Прототип</a>
       </nav>
     </aside>
     <main class="page">
@@ -59,10 +59,12 @@
         <li><a href="https://www.carbondesignsystem.com/building-blocks/foundations/color/overview">Carbon, цвет</a> — белый и серый слой, синий как действие, токены по роли.</li>
         <li><a href="https://www.ibm.com/standards/carbon/guidelines/expressive-styling/overview">Carbon, expressive</a> — 16px для чтения, 14px для хрома продукта. Договор не маркетинговый hero.</li>
         <li><a href="https://primer.style/foundations/color">Primer, цвет</a> — белая бумага, inset-серый, акцент около <code>#0969da</code>, не фиолетовый градиент.</li>
-        <li><a href="https://support.google.com/docs/answer/6033474">Google Docs, предложения</a> — правка в потоке текста.</li>
-        <li><a href="https://support.microsoft.com/en-us/office/using-modern-comments-in-word-edc6ae71-0a2d-49fe-8faa-986f1e48136a">Word, современные комментарии</a> — комментарий у якоря в тексте, не карточка всего документа.</li>
-        <li><a href="https://majkowska.design/case-study/helping-users-negotiate-and-collaborate-more-effectively-in-contractbook">Contractbook, кейс</a> — без правки в продукте люди уходят в Word; нужны предложение правки и комментарий.</li>
-        <li><a href="https://documentation.conga.com/en/clm-for-advantage-platform/preview/clm-for-users/contract-details-and-actions/comparing-contract-documents">Conga, сравнение</a> — отличия смотрят в одном просмотрщике, разметка в тексте.</li>
+        <li><a href="https://support.google.com/docs/answer/6033474">Google Docs, предложения</a> — правка в потоке текста; к предложению можно дописать пояснение.</li>
+        <li><a href="https://support.google.com/docs/answer/65129">Google Docs, комментарии</a> — обсуждение у выделенного места; панель комментариев справа.</li>
+        <li><a href="https://support.microsoft.com/en-us/office/using-modern-comments-in-word-edc6ae71-0a2d-49fe-8faa-986f1e48136a">Word, современные комментарии</a> — комментарий у якоря на правом поле, не карточка всего документа.</li>
+        <li><a href="https://support.microsoft.com/en-us/office/track-changes-in-word-197ba630-0f5f-4a8e-9a77-3712475e806a">Word, отслеживание изменений</a> — правка отдельно от комментария; зачёркивание и подчёркивание в тексте или balloons на поле.</li>
+        <li><a href="https://majkowska.design/case-study/helping-users-negotiate-and-collaborate-more-effectively-in-contractbook">Contractbook, кейс</a> — без правки в продукте люди уходят в Word; нужны предложение правки и комментарий как разные действия.</li>
+        <li><a href="https://documentation.conga.com/en/clm-for-advantage-platform/preview/clm-for-users/contract-details-and-actions/comparing-contract-documents">Conga, сравнение</a> — отличия смотрят в одном просмотрщике, разметка в тексте. Страница в 2026 требует Firefox; сниппет не цитируем.</li>
         <li><a href="https://www.lazarev.agency/cases/kontrakiq">Kontrak IQ</a> — документ, комментарии и статус пункта вместе. Дашборды портфеля с графиками в макет не копируем.</li>
         <li><a href="https://www.nngroup.com/articles/checklist-registration-login/">NN/G, регистрация и вход</a> — на форме только почта и пароль; пароль можно показать; поля не дублировать. Письмо-подтверждение у NN/G — трение. Заказчик письмо выбрал: в макете экран «письмо отправлено» и повторная отправка, не SMS и не отмена факта.</li>
         <li><a href="https://www.nngroup.com/articles/password-creation/">NN/G, создание пароля</a> — требования к паролю видны сразу. Есть «показать пароль».</li>
@@ -72,11 +74,22 @@
         <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-rearrangeable/">WAI APG, список с порядком</a> — кнопки вверх и вниз и клавиатура. Не только перетаскивание.</li>
         <li><a href="https://documentation.conga.com/en/clm-for-salesforce/current/clm-for-users/contract-document-versioning">Conga, версии документа</a> — экземпляр договора помнит шаблон на момент создания. Правка шаблона живой договор не переписывает.</li>
       </ul>
-      <p>Вывод. Согласование — столбец бумаги. Панель пункта держится номера. Дашборд — список дел, не BI. Форма реквизитов начинается с ОПФ. Конструктор меняет порядок с клавиатуры. Проект — снимок шаблона. Контрагент без дашборда, шаблонов, настроек и реквизитов.</p>
+      <p>Вывод. Согласование — рабочая зона: договор бумажным потоком в центре, слева оглавление, справа ссылка, реквизиты и обсуждение активного пункта. Номер пункта слева у текста. Дашборд — список дел, не BI. Форма реквизитов начинается с ОПФ. Конструктор меняет порядок с клавиатуры. Проект — снимок шаблона. Контрагент без дашборда, шаблонов, настроек и реквизитов.</p>
+
+      <h3>Правки и комментарии в чужих продуктах</h3>
+      <p>Открытые страницы (не сниппеты поиска):</p>
+      <ul>
+        <li><a href="https://support.microsoft.com/en-us/office/using-modern-comments-in-word-edc6ae71-0a2d-49fe-8faa-986f1e48136a">Word, modern comments</a> — активный комментарий на правом поле рядом с якорем в тексте; resolved уходят из поля в список.</li>
+        <li><a href="https://support.microsoft.com/en-us/office/track-changes-in-word-197ba630-0f5f-4a8e-9a77-3712475e806a">Word, Track Changes</a> — правка и комментарий разные вещи. Правка: зачёркнутое удаление и подчёркнутая вставка в тексте, либо balloons на поле. Balloons правок вытесняют комментарии от края страницы.</li>
+        <li><a href="https://support.google.com/docs/answer/6033474">Google Docs, Suggest edits</a> — предложение видно в тексте (цвет, зачёркивание). У предложения карточка на поле: принять или отклонить. К предложению пишут пояснение как reply.</li>
+        <li><a href="https://support.google.com/docs/answer/65129">Google Docs, comments</a> — комментарий к выделенному месту; панель справа; это обсуждение, не замена текста.</li>
+        <li><a href="https://majkowska.design/case-study/helping-users-negotiate-and-collaborate-more-effectively-in-contractbook">Contractbook</a> — без предложения правки и комментария в продукте люди уходят в Word или Docs. В решении кейса: suggested changes и comments разделены.</li>
+      </ul>
+      <p>Вывод по ресёрчу. В документах правка и комментарий почти всегда разные поверхности: комментарий держится поля справа у якоря; правка — либо разметка в потоке текста, либо отдельная карточка/блок предложения с автором и принять/отклонить. Когда правка и комментарий выглядят одинаково, смысл теряется. CLM без правки в продукте теряет людей в Word.</p>
 
       <h2>3. Поиск качественного визуала</h2>
       <p>Метод. Сравнивали не лендинги SaaS, а системы, где синий — ссылка, кнопка или фокус, а фон — бумага: Carbon White, Primer light, поле документа в Docs и Word. Не референс: три карточки, indigo-gradient, стекло.</p>
-      <p>Токены ниже — гипотеза до записи в UX-кит. После кита они становятся образцом вида продукта.</p>
+      <p>Токены ниже записаны в <a href="../ui/kit.html">UX-кит</a> как образец вида. Здесь — след ресёрча; со временем устареют относительно кита.</p>
       <ul>
         <li>фон <code>#f6f8fa</code>, поверхность <code>#ffffff</code>, текст <code>#1f2328</code>, вторичный <code>#59636e</code>;</li>
         <li>акцент <code>#0969da</code> — не Tailwind <code>#2563EB</code> и не фиолетовый;</li>
@@ -113,9 +126,9 @@
         <li><a href="../questions/index.html#q-vnutri">Внутреннее</a> и <a href="../questions/index.html#q-ljudi">люди</a> — вне первой версии.</li>
         <li><a href="../questions/index.html#q-posle-itoga">После итога</a> — договор нельзя править, доступна печать согласованного текста.</li>
         <li><a href="../questions/index.html#q-status-punkta">Пункт</a> — согласован без непринятых редакций; иначе ждёт ответа или спор. Кнопка «Согласен» у обеих сторон.</li>
-        <li><a href="../questions/index.html#q-podpisi">Подписи сторон</a> — «Вы» и название другой стороны из реквизитов.</li>
+        <li><a href="../questions/index.html#q-podpisi">Подписи сторон</a> — «Вы предложили» и «{короткое имя} предлагает».</li>
         <li><a href="../questions/index.html#q-vizit">Новое</a> — редакция новая, пока человек не открыл этот пункт.</li>
-        <li><a href="statusy.html">Статусы</a> — пункт и документ, что видит каждая сторона.</li>
+        <li><a href="statuses.html">Статусы</a> — пункт и документ, что видит каждая сторона.</li>
       </ul>
 
       <h2>5. Что ещё блокирует</h2>
@@ -139,8 +152,8 @@
       <ol>
         <li>Записать новый user-flow в устройство продукта и вопросы. Готово, когда закрытые ответы не спорят со старым текстом.</li>
         <li>Дописать ресёрч на этой странице. Готово, когда ссылки ведут на открытые страницы и есть выводы для экранов.</li>
-        <li>Дополнить UX-кит: дашборд-список, форма ОПФ, конструктор с порядком. Файлы <a href="../vid/nabor.html">nabor.html</a> и product.css.</li>
-        <li>Кликабельный прототип <a href="../vid/app.html">vid/app.html</a>. Готово, когда проходятся регистрация, дашборд, настройки, реквизиты, конструктор, импорт-мок, проект-снимок, согласование и ссылка контрагента.</li>
+        <li>Дополнить UX-кит: дашборд-список, форма ОПФ, конструктор с порядком. Файлы <a href="../ui/kit.html">kit.html</a> и product.css.</li>
+        <li>Кликабельный прототип <a href="../ui/app.html">ui/app.html</a>. Готово, когда проходятся регистрация, дашборд, настройки, реквизиты, конструктор, импорт-мок, проект-снимок, согласование и ссылка контрагента.</li>
       </ol>
       <p>Не делать на этих шагах: код приложения вне книги, беклог, коммит, несколько людей, внутреннее обсуждение, электронная подпись.</p>
 
@@ -148,7 +161,7 @@
       <p>Хранилище. Электронная подпись. Формальные цепочки. Несколько пользователей у стороны. Внутреннее обсуждение.</p>
 
       <nav class="pager">
-        <a href="statusy.html">Назад · Статусы</a>
+        <a href="statuses.html">Назад · Статусы</a>
         <a class="next" href="../questions/index.html">Дальше · Вопросы до работы</a>
       </nav>
     </main>

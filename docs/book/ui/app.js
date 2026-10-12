@@ -231,7 +231,7 @@
     },
     {
       id: "tpl-nda",
-      title: "Соглашение о молчании",
+      title: "Соглашение о неразглашении",
       source: "после импорта Word",
       dirty: false,
       sections: [
@@ -257,9 +257,9 @@
     },
     {
       id: "p-nda",
-      title: "Молчание · «Тихая Лампа»",
+      title: "Неразглашение · «Тихая Лампа»",
       templateId: "tpl-nda",
-      templateName: "Соглашение о молчании",
+      templateName: "Соглашение о неразглашении",
       orgId: "org-ooo",
       clauses: clone(ndaClauses),
       seen: false,
@@ -284,6 +284,9 @@
   let screen = "login";
   let dashEmpty = false;
   let openPanel = { id: "", mode: "" };
+  let sheetClauseId = "";
+  let menuOpen = false;
+  let protoNotesOpen = false;
   let role = "own";
   let currentProjectId = "p-sy184";
   let currentTemplateId = "tpl-supply";
@@ -334,9 +337,105 @@
   }
 
   function clauseStatusClass(status) {
-    if (status === "agreed") return "dv-pill dv-pill-ok";
+    if (status === "agreed") return "dv-status";
+    if (status === "waitUs") return "dv-pill dv-pill-action";
     if (status === "dispute") return "dv-pill dv-pill-err";
-    return "dv-pill dv-pill-wait";
+    return "dv-status dv-status-muted";
+  }
+
+  function shortPartyName(name) {
+    const raw = String(name || "");
+    const quoted = raw.match(/«([^»]+)»/);
+    if (quoted) return quoted[1];
+    return raw
+      .replace(/^(ООО|ИП|Товарищество)\s+/i, "")
+      .replace(/^«|»$/g, "")
+      .trim() || raw;
+  }
+
+  function revWhoLabel(kind) {
+    const names = partyLabels();
+    const mine = role === "own" ? kind === "ours" : kind === "theirs";
+    if (mine) return "Вы предложили";
+    return shortPartyName(names.other) + " предлагает";
+  }
+
+  function commentWhoLabel(kind) {
+    const names = partyLabels();
+    const mine = role === "own" ? kind === "ours" : kind === "theirs";
+    if (mine) return "Вы";
+    return shortPartyName(names.other);
+  }
+
+  function isNarrowReview() {
+    return window.matchMedia("(max-width: 1100px)").matches;
+  }
+
+  function isPhoneReview() {
+    return window.matchMedia("(max-width: 720px)").matches;
+  }
+
+  function contractNumber(project) {
+    const title = (project || currentProject()).title || "";
+    const parts = title.split("·");
+    return (parts.length > 1 ? parts[parts.length - 1] : title).trim() || "без номера";
+  }
+
+  function formatRuDate(value) {
+    const d = value ? new Date(value) : new Date();
+    if (Number.isNaN(d.getTime())) return "—";
+    const months = [
+      "января",
+      "февраля",
+      "марта",
+      "апреля",
+      "мая",
+      "июня",
+      "июля",
+      "августа",
+      "сентября",
+      "октября",
+      "ноября",
+      "декабря"
+    ];
+    return d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear() + " г.";
+  }
+
+  function shortPersonName(fio) {
+    const parts = String(fio || "")
+      .trim()
+      .split(/\s+/);
+    if (!parts[0]) return "________________";
+    if (parts.length === 1) return parts[0];
+    const initials = parts
+      .slice(1)
+      .map((p) => (p[0] ? p[0].toUpperCase() + "." : ""))
+      .join(" ");
+    return parts[0] + " " + initials;
+  }
+
+  function setOverlay(el, on) {
+    if (!el) return;
+    el.hidden = !on;
+    el.classList.toggle("is-on", on);
+  }
+
+  function peerWelcomeKey(project) {
+    return "dv-peer-welcome-" + project.id;
+  }
+
+  function peerWelcomeSeen(project) {
+    try {
+      return sessionStorage.getItem(peerWelcomeKey(project)) === "1";
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function markPeerWelcomeSeen(project) {
+    try {
+      sessionStorage.setItem(peerWelcomeKey(project), "1");
+    } catch (err) {}
   }
 
   function clauseDomId(item) {
@@ -459,6 +558,9 @@
     if (who) role = who;
     if (name === "link") role = "peer";
     if (name !== "link" && name !== "print") role = "own";
+    sheetClauseId = "";
+    menuOpen = false;
+    if (name === "print") openPanel = { id: "", mode: "" };
     if (!fromHash) {
       const hash = "#" + name;
       if (location.hash !== hash) history.pushState({ screen: name }, "", hash);
@@ -470,7 +572,7 @@
     const ownBar = document.getElementById("own-bar");
     const guestBar = document.getElementById("guest-bar");
     if (ownBar) ownBar.hidden = !own;
-    if (guestBar) guestBar.hidden = name !== "link";
+    if (guestBar) guestBar.hidden = true;
     const map = {
       dash: "nav-dash",
       templates: "nav-templates",
@@ -495,14 +597,14 @@
     if (name === "org-form") fillOrgForm();
     if (name === "builder") renderBuilder();
     if (name === "settings") fillSettings();
-    if (name === "ours" || name === "link" || name === "print") renderDoc();
     if (name === "ours") {
-      renderLinkBox();
       renderOursChrome();
+      renderLinkBox();
     }
+    if (name === "ours" || name === "link" || name === "print") renderDoc();
     const proj = currentProject();
     const dead = document.getElementById("link-dead");
-    const live = document.getElementById("doc-link");
+    const live = document.getElementById("link-live");
     if (name === "link" && dead && live) {
       const ok = proj.linkState === "live";
       dead.hidden = ok;
@@ -514,6 +616,15 @@
   function renderProto() {
     const dashBtn = document.getElementById("toggle-dash");
     if (dashBtn) dashBtn.textContent = dashEmpty ? "Показать список" : "Пустой дашборд";
+    const bar = document.getElementById("proto-bar");
+    const extra = document.getElementById("proto-extra");
+    const toggle = document.getElementById("proto-open-toggle");
+    if (bar) bar.classList.toggle("is-open", protoNotesOpen);
+    if (extra) extra.hidden = !protoNotesOpen;
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", protoNotesOpen ? "true" : "false");
+      toggle.textContent = protoNotesOpen ? "Скрыть вопросы" : "Открытые вопросы";
+    }
   }
 
   function renderDash() {
@@ -741,7 +852,7 @@
     const tpl = templates.find((item) => item.id === project.templateId);
     document.getElementById("ours-title").textContent = project.title;
     document.getElementById("ours-meta").textContent =
-      "Снимок шаблона «" + project.templateName + "». Вид своей стороны. Договор одним потоком.";
+      "Создан из шаблона «" + project.templateName + "» · 12 марта";
     const snap = document.getElementById("snap-note");
     const row = document.getElementById("snap-row");
     const snapOn = templateChangedAfterProject(tpl);
@@ -749,86 +860,284 @@
     if (row) row.hidden = !snapOn;
     const pick = document.getElementById("org-pick");
     const pickWrap = document.getElementById("org-pick-wrap");
+    const linkWrap = document.getElementById("link-box-wrap");
     if (pickWrap) pickWrap.hidden = Boolean(project.approved);
-    pick.innerHTML = orgs
-      .map((item) => {
-        const sel = item.id === project.orgId ? " selected" : "";
-        return "<option value=\"" + item.id + "\"" + sel + ">" + esc(orgLabel(item)) + "</option>";
-      })
-      .join("");
+    if (linkWrap) linkWrap.hidden = Boolean(project.approved);
+    if (pick) {
+      pick.innerHTML = orgs
+        .map((item) => {
+          const sel = item.id === project.orgId ? " selected" : "";
+          return "<option value=\"" + item.id + "\"" + sel + ">" + esc(orgLabel(item)) + "</option>";
+        })
+        .join("");
+    }
   }
 
-  function mark(kind, title, text) {
+  function revBlock(kind, text, isNew) {
     if (!text) return "";
     return (
-      "<span class=\"dv-mark dv-mark-" +
+      "<div class=\"dv-rev dv-rev-" +
       kind +
-      "\"><b>" +
-      title +
-      "</b>" +
+      (isNew ? " dv-rev-new" : "") +
+      "\"><p class=\"dv-rev-who\">" +
+      esc(revWhoLabel(kind)) +
+      (isNew ? " <span class=\"dv-rev-badge\">новое</span>" : "") +
+      "</p><p class=\"dv-rev-body\">" +
       esc(text) +
-      "</span>"
+      "</p></div>"
+    );
+  }
+
+  function clauseActionsHtml(item, tools) {
+    if (!tools) return "";
+    const open = openPanel.id === item.id;
+    const cPressed = open && openPanel.mode === "comment" ? "true" : "false";
+    const ePressed = open && openPanel.mode === "edit" ? "true" : "false";
+    const canAgree = Boolean(otherRevision(item));
+    return (
+      "<div class=\"dv-clause-actions\">" +
+      "<button type=\"button\" class=\"dv-btn\" data-panel=\"comment\" data-id=\"" +
+      esc(item.id) +
+      "\" aria-pressed=\"" +
+      cPressed +
+      "\">Ответить</button>" +
+      "<button type=\"button\" class=\"dv-btn\" data-panel=\"edit\" data-id=\"" +
+      esc(item.id) +
+      "\" aria-pressed=\"" +
+      ePressed +
+      "\">Предложить свою формулировку</button>" +
+      (canAgree
+        ? "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-approve=\"" +
+          esc(item.id) +
+          "\">Согласен</button>"
+        : "") +
+      "</div>"
+    );
+  }
+
+  function clauseEditFormHtml(item) {
+    const val = role === "own" ? item.ours || item.text : item.theirs || item.text;
+    return (
+      "<div class=\"dv-rev-form\">" +
+      "<div class=\"dv-field\"><label>Своя формулировка</label>" +
+      "<textarea class=\"dv-area\" data-draft=\"" +
+      esc(item.id) +
+      "\">" +
+      esc(val) +
+      "</textarea></div>" +
+      "<div class=\"dv-row\">" +
+      "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-save=\"" +
+      esc(item.id) +
+      "\">Отправить</button>" +
+      "<button type=\"button\" class=\"dv-btn\" data-close=\"" +
+      esc(item.id) +
+      "\">Отмена</button>" +
+      "</div></div>"
+    );
+  }
+
+  function clauseCommentFormHtml(item) {
+    const val = role === "own" ? item.ourComment : item.theirComment;
+    return (
+      "<div class=\"dv-discuss\">" +
+      (item.ourComment
+        ? "<div class=\"dv-comment\"><p class=\"dv-comment-who\">" +
+          esc(commentWhoLabel("ours")) +
+          "</p><p class=\"dv-comment-body\">" +
+          esc(item.ourComment) +
+          "</p></div>"
+        : "") +
+      (item.theirComment
+        ? "<div class=\"dv-comment\"><p class=\"dv-comment-who\">" +
+          esc(commentWhoLabel("theirs")) +
+          "</p><p class=\"dv-comment-body\">" +
+          esc(item.theirComment) +
+          "</p></div>"
+        : "") +
+      "<p class=\"dv-caption\">Ответ. Его видит другая сторона.</p>" +
+      "<textarea class=\"dv-area\" data-draft=\"" +
+      esc(item.id) +
+      "\">" +
+      esc(val) +
+      "</textarea>" +
+      "<div class=\"dv-row\">" +
+      "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-save=\"" +
+      esc(item.id) +
+      "\">Сохранить</button>" +
+      "<button type=\"button\" class=\"dv-btn\" data-close=\"" +
+      esc(item.id) +
+      "\">Свернуть</button>" +
+      "</div></div>"
     );
   }
 
   function clauseRow(item, tools) {
     const status = clauseStatus(item);
-    const pill = tools
+    const statusHtml = tools
       ? "<span class=\"" +
         clauseStatusClass(status) +
         "\">" +
         esc(clauseStatusLabel(status)) +
         "</span>"
       : "";
-    const names = partyLabels();
-    const body = tools
-      ? "<span class=\"dv-num\">" +
-        esc(item.id) +
-        "</span>" +
-        esc(item.text) +
-        mark("ours", "Редакция · " + (role === "own" ? names.you : names.other), item.ours) +
-        mark("theirs", "Редакция · " + (role === "own" ? names.other : names.you), item.theirs) +
-        mark("ours", "Комментарий · " + (role === "own" ? names.you : names.other), item.ourComment) +
-        mark("theirs", "Комментарий · " + (role === "own" ? names.other : names.you), item.theirComment) +
-        pill
-      : "<span class=\"dv-num\">" + esc(item.id) + "</span>" + esc(item.text);
     const open = openPanel.id === item.id;
-    const cPressed = open && openPanel.mode === "comment" ? "true" : "false";
-    const ePressed = open && openPanel.mode === "edit" ? "true" : "false";
-    const canAgree = Boolean(otherRevision(item));
-    const toolHtml = tools
-      ? "<div class=\"dv-clause-tools\">" +
-        "<button type=\"button\" data-panel=\"comment\" data-id=\"" +
+    const phone = isPhoneReview();
+    const sheetOpen = phone && sheetClauseId === item.id;
+    const newTheirs = tools && role === "own" && item.theirs && !item.seenTheirs;
+    const newOurs = tools && role === "peer" && item.ours && !item.seenOurs;
+    let revHtml = "";
+    if (tools) {
+      revHtml += revBlock("ours", item.ours, newOurs);
+      revHtml += revBlock("theirs", item.theirs, newTheirs);
+    }
+    let formHtml = "";
+    if (tools && open && openPanel.mode === "edit" && !phone) {
+      formHtml = clauseEditFormHtml(item);
+    }
+    let fallDiscuss = "";
+    if (tools && open && openPanel.mode === "comment" && isNarrowReview() && !phone) {
+      fallDiscuss =
+        "<div class=\"dv-discuss-fall dv-side-block\">" +
+        "<h3>Обсуждение · " +
         esc(item.id) +
-        "\" aria-pressed=\"" +
-        cPressed +
-        "\">Комментарий</button>" +
-        "<button type=\"button\" data-panel=\"edit\" data-id=\"" +
+        "</h3>" +
+        clauseCommentFormHtml(item) +
+        "</div>";
+    }
+    const actions = phone ? "" : clauseActionsHtml(item, tools);
+    const classes =
+      "dv-clause" +
+      (status === "waitUs" ? " needs-you" : "") +
+      (open ? " is-open is-active" : "") +
+      (sheetOpen ? " is-sheet-open" : "");
+    const sec = item.section ? "<h3 class=\"dv-sec\">" + esc(item.section) + "</h3>" : "";
+    return (
+      sec +
+      "<article class=\"" +
+      classes +
+      "\" id=\"" +
+      clauseDomId(item) +
+      "\" data-clause-id=\"" +
+      esc(item.id) +
+      "\">" +
+      "<div class=\"dv-clause-main\">" +
+      "<div class=\"dv-clause-head\">" +
+      "<span class=\"dv-num\">" +
+      esc(item.id) +
+      "</span>" +
+      "<div class=\"dv-clause-text\"><p>" +
+      esc(item.text) +
+      "</p>" +
+      statusHtml +
+      "</div></div>" +
+      revHtml +
+      formHtml +
+      actions +
+      fallDiscuss +
+      "</div></article>"
+    );
+  }
+
+  function printClauseRow(item) {
+    const sec = item.section ? "<h3 class=\"dv-sec\">" + esc(item.section) + "</h3>" : "";
+    return (
+      sec +
+      "<article class=\"dv-clause\">" +
+      "<div class=\"dv-clause-main\">" +
+      "<div class=\"dv-clause-head\">" +
+      "<span class=\"dv-num\">" +
+      esc(item.id) +
+      "</span>" +
+      "<div class=\"dv-clause-text\"><p>" +
+      esc(item.text) +
+      "</p></div></div></div></article>"
+    );
+  }
+
+  function renderToc(targetId) {
+    const root = document.getElementById(targetId);
+    if (!root) return;
+    const list = clauses();
+    let html = "<p class=\"dv-toc-title\">Разделы</p><ul class=\"dv-toc-list\">";
+    list.forEach((item) => {
+      if (item.section) {
+        html +=
+          "<li><a class=\"dv-toc-sec\" href=\"#\" data-jump=\"" +
+          esc(item.id) +
+          "\">" +
+          esc(item.section) +
+          "</a></li>";
+      }
+      const status = clauseStatus(item);
+      let mark = "";
+      if (status === "waitUs" || status === "dispute") {
+        mark =
+          " <span class=\"" +
+          clauseStatusClass(status) +
+          "\">" +
+          esc(clauseStatusLabel(status)) +
+          "</span>";
+      }
+      html +=
+        "<li><a href=\"#\" data-jump=\"" +
         esc(item.id) +
-        "\" aria-pressed=\"" +
-        ePressed +
-        "\">Редакция</button>" +
-        (canAgree
-          ? "<button type=\"button\" data-approve=\"" + esc(item.id) + "\">Согласен</button>"
-          : "") +
-        "</div>"
-      : "";
-    let discuss = "";
-    if (tools && open) {
-      const isEdit = openPanel.mode === "edit";
-      const label = isEdit ? "Своя редакция пункта. Её видит другая сторона." : "Комментарий. Его видит другая сторона.";
-      const val = role === "own" ? (isEdit ? item.ours : item.ourComment) : isEdit ? item.theirs : item.theirComment;
-      discuss =
+        "\">" +
+        esc(item.id) +
+        mark +
+        "</a></li>";
+    });
+    html += "</ul>";
+    root.innerHTML = html;
+  }
+
+  function renderDiscussPanel(bodyId, titleId) {
+    const body = document.getElementById(bodyId);
+    const title = document.getElementById(titleId);
+    if (!body) return;
+    const project = currentProject();
+    if (project.approved) {
+      if (title) title.textContent = "Обсуждение";
+      body.innerHTML = "<p class=\"dv-discuss-empty\">Договор утверждён. Обсуждение закрыто.</p>";
+      return;
+    }
+    const item = clauses().find((c) => c.id === openPanel.id);
+    if (!item) {
+      if (title) title.textContent = "Обсуждение";
+      body.innerHTML = "<p class=\"dv-discuss-empty\">Выберите пункт и нажмите «Ответить».</p>";
+      return;
+    }
+    if (title) title.textContent = "Обсуждение · " + item.id;
+    let html = "";
+    if (item.ourComment) {
+      html +=
+        "<div class=\"dv-comment\"><p class=\"dv-comment-who\">" +
+        esc(commentWhoLabel("ours")) +
+        "</p><p class=\"dv-comment-body\">" +
+        esc(item.ourComment) +
+        "</p></div>";
+    }
+    if (item.theirComment) {
+      html +=
+        "<div class=\"dv-comment\"><p class=\"dv-comment-who\">" +
+        esc(commentWhoLabel("theirs")) +
+        "</p><p class=\"dv-comment-body\">" +
+        esc(item.theirComment) +
+        "</p></div>";
+    }
+    if (!item.ourComment && !item.theirComment && openPanel.mode !== "comment") {
+      html += "<p class=\"dv-discuss-empty\">Пока без ответов.</p>";
+    }
+    if (openPanel.mode === "comment" && !isNarrowReview()) {
+      const val = role === "own" ? item.ourComment : item.theirComment;
+      html +=
         "<div class=\"dv-discuss\">" +
-        "<p class=\"dv-caption\">" +
-        label +
-        "</p>" +
+        "<p class=\"dv-caption\">Ответ. Его видит другая сторона.</p>" +
         "<textarea class=\"dv-area\" data-draft=\"" +
         esc(item.id) +
         "\">" +
         esc(val) +
         "</textarea>" +
-        "<div class=\"dv-row\" style=\"margin-top:0.45rem\">" +
+        "<div class=\"dv-row\">" +
         "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-save=\"" +
         esc(item.id) +
         "\">Сохранить</button>" +
@@ -836,22 +1145,42 @@
         esc(item.id) +
         "\">Свернуть</button>" +
         "</div></div>";
+    } else if (openPanel.mode === "comment" && isPhoneReview()) {
+      html += "<p class=\"dv-discuss-empty\">Форма ответа открыта в шторке.</p>";
+    } else if (openPanel.mode === "comment" && isNarrowReview()) {
+      html += "<p class=\"dv-discuss-empty\">Форма ответа открыта под пунктом.</p>";
     }
-    const sec = item.section ? "<h3 class=\"dv-sec\">" + esc(item.section) + "</h3>" : "";
-    return (
-      sec +
-      "<article class=\"dv-clause" +
-      (open ? " is-open" : "") +
-      "\" id=\"" +
-      clauseDomId(item) +
-      "\">" +
-      "<div class=\"dv-clause-body\">" +
-      body +
-      "</div>" +
-      toolHtml +
-      discuss +
-      "</article>"
-    );
+    body.innerHTML = html;
+  }
+
+  function renderPeerWelcome() {
+    const box = document.getElementById("peer-welcome");
+    const orgLabelEl = document.getElementById("peer-org-label");
+    const project = currentProject();
+    const sender = orgLabel(orgForDoc());
+    if (orgLabelEl) orgLabelEl.textContent = sender;
+    if (!box) return;
+    const hide = peerWelcomeSeen(project) || project.approved;
+    box.hidden = hide;
+    const waitLine = (wait) =>
+      wait
+        ? "Ждут вашего ответа: " + ruCount(wait, "пункт", "пункта", "пунктов") + "."
+        : "Открытых пунктов, которые ждут вас, сейчас нет.";
+    if (hide) {
+      const compact = document.getElementById("peer-welcome-compact");
+      if (compact) compact.hidden = true;
+      return;
+    }
+    const counts = tally(project, "peer");
+    const wait = counts.waitUs;
+    box.innerHTML =
+      "<h2>Договор от " +
+      esc(sender) +
+      "</h2>" +
+      "<p>Просмотрите пункты, ответьте или предложите свою формулировку. Когда формулировка подходит — нажмите «Согласен».</p>" +
+      "<p class=\"dv-caption\" style=\"margin:0\">" +
+      esc(waitLine(wait)) +
+      "</p>";
   }
 
   function orgForDoc() {
@@ -910,6 +1239,41 @@
     );
   }
 
+  function printDocShell(inner) {
+    const project = currentProject();
+    const own = orgForDoc();
+    const ownName = orgLabel(own);
+    const ownFio = shortPersonName(own && (own.fio || account.name));
+    const num = contractNumber(project);
+    const edition = formatRuDate(project.approvedAt || "2026-10-12");
+    const footLeft = "№ " + num + " · итоговая редакция от " + edition;
+    document.documentElement.style.setProperty("--dv-print-foot-left", JSON.stringify(footLeft));
+    return (
+      "<div class=\"dv-print-doc\">" +
+      "<div class=\"dv-doc-head\"><h2>Договор № " +
+      esc(num) +
+      "</h2>" +
+      "<div class=\"dv-doc-meta\"><span>г. Северск-на-Волге</span><span>12 марта 2026 г.</span></div></div>" +
+      "<p class=\"dv-preamble\">" +
+      esc(preamble()) +
+      "</p>" +
+      inner +
+      "<div class=\"dv-print-sign\">" +
+      "<div class=\"dv-print-sign-party\"><p><strong>Покупатель</strong></p><p>" +
+      esc(ownName) +
+      "</p><div class=\"dv-print-sign-line\"></div><div class=\"dv-print-sign-meta\"><span>" +
+      esc(ownFio) +
+      "</span><span>М.П.</span></div></div>" +
+      "<div class=\"dv-print-sign-party\"><p><strong>Поставщик</strong></p><p>Товарищество «Лазурный склад»</p>" +
+      "<div class=\"dv-print-sign-line\"></div><div class=\"dv-print-sign-meta\"><span>Бурелом Ф.</span><span>М.П.</span></div></div>" +
+      "</div>" +
+      "<p class=\"dv-print-preview-note\">В печати внизу каждой страницы: " +
+      esc(footLeft) +
+      " и «стр.» с номером страницы</p>" +
+      "</div>"
+    );
+  }
+
   function renderReviewBar() {
     const project = currentProject();
     const oursBar = document.getElementById("review-bar-ours");
@@ -918,7 +1282,11 @@
     const counts = tally(project);
     const open = openList(project);
     const statusClass =
-      status === "reviewing" ? "dv-pill dv-pill-wait" : "dv-pill dv-pill-ok";
+      status === "approved"
+        ? "dv-status"
+        : status === "ready"
+          ? "dv-pill dv-pill-ok"
+          : "dv-status dv-status-muted";
     let html =
       "<span class=\"" +
       statusClass +
@@ -926,7 +1294,9 @@
       esc(docStatusLabel(status)) +
       "</span>";
     if (status === "approved") {
-      html += "<p class=\"dv-review-line\">Договор нельзя править. Доступна версия для печати.</p>";
+      html +=
+        "<p class=\"dv-review-line\">Договор нельзя править. Доступна версия для печати.</p>" +
+        "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-go-print>Версия для печати</button>";
     } else {
       html += "<p class=\"dv-review-line\">" + esc(summaryLine(counts)) + "</p>";
       if (open.length) {
@@ -987,21 +1357,233 @@
 
   function renderDoc() {
     const project = currentProject();
-    const tools = screen !== "print" && !project.approved;
-    const html = clauses()
-      .map((item) => clauseRow(item, tools))
-      .join("");
-    const extra = screen === "print" || project.approved ? "dv-print" : "";
-    const packed = docShell(html, extra);
     const ours = document.getElementById("doc-ours");
     const link = document.getElementById("doc-link");
     const print = document.getElementById("doc-print");
+    if (screen === "print") {
+      const packed = printDocShell(clauses().map(printClauseRow).join(""));
+      if (print) print.innerHTML = packed;
+      closeOverlays();
+      return;
+    }
+    const tools = !project.approved;
+    if (isPhoneReview() && openPanel.id) sheetClauseId = openPanel.id;
+    const html = clauses()
+      .map((item) => clauseRow(item, tools))
+      .join("");
+    const extra = project.approved ? "dv-print" : "";
+    const packed = docShell(html, extra);
     if (ours && screen === "ours") ours.innerHTML = packed;
-    if (link && screen === "link") link.innerHTML = packed;
-    if (print && screen === "print") print.innerHTML = packed;
-    const printBtn = document.getElementById("btn-print");
-    if (printBtn) printBtn.hidden = !project.approved || role !== "own" || screen !== "ours";
+    if (link && screen === "link") {
+      const welcomeBit = peerWelcomeCompactHtml(project);
+      link.innerHTML = welcomeBit + packed;
+    }
     renderReviewBar();
+    renderPhoneChrome();
+    renderActionSheet();
+    renderMenuSheet();
+    if (screen === "ours") {
+      renderToc("toc-ours");
+      renderDiscussPanel("discuss-ours-body", "discuss-ours-title");
+    }
+    if (screen === "link" && project.linkState === "live") {
+      renderToc("toc-link");
+      renderDiscussPanel("discuss-link-body", "discuss-link-title");
+      renderPeerWelcome();
+    }
+  }
+
+  function peerWelcomeCompactHtml(project) {
+    if (role !== "peer" || peerWelcomeSeen(project) || project.approved) return "";
+    const sender = orgLabel(orgForDoc());
+    const counts = tally(project, "peer");
+    const wait = counts.waitUs;
+    return (
+      "<div class=\"dv-welcome-compact\" id=\"peer-welcome-compact\">" +
+      "<p><strong>Договор от " +
+      esc(sender) +
+      ".</strong> " +
+      (wait
+        ? "Ждут ответа: " + ruCount(wait, "пункт", "пункта", "пунктов") + "."
+        : "Открытых пунктов нет.") +
+      " <button type=\"button\" class=\"dv-linkish\" data-dismiss-welcome>Скрыть</button></p>" +
+      "</div>"
+    );
+  }
+
+  function phoneStatusHtml(project) {
+    const status = docStatus(project);
+    const statusClass =
+      status === "approved"
+        ? "dv-status"
+        : status === "ready"
+          ? "dv-pill dv-pill-ok"
+          : "dv-status dv-status-muted";
+    return (
+      "<span class=\"" +
+      statusClass +
+      "\">" +
+      esc(docStatusLabel(status)) +
+      "</span>"
+    );
+  }
+
+  function renderPhoneChrome() {
+    const project = currentProject();
+    const counts = tally(project);
+    const open = openList(project);
+    const bars = [
+      { bar: "phone-bar-ours", progress: "phone-progress-ours", on: screen === "ours" },
+      { bar: "phone-bar-link", progress: "phone-progress-link", on: screen === "link" && project.linkState === "live" }
+    ];
+    bars.forEach((slot) => {
+      const bar = document.getElementById(slot.bar);
+      const progress = document.getElementById(slot.progress);
+      if (!bar || !progress) return;
+      if (!slot.on) {
+        bar.innerHTML = "";
+        progress.innerHTML = "";
+        return;
+      }
+      bar.innerHTML =
+        "<p class=\"dv-phone-bar-title\">" +
+        esc(project.title) +
+        "</p>" +
+        phoneStatusHtml(project) +
+        "<button type=\"button\" class=\"dv-btn\" data-open-menu>Меню</button>";
+      let right = "";
+      if (project.approved) {
+        right =
+          "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-go-print>Печать</button>";
+      } else if (open.length) {
+        right = "<button type=\"button\" class=\"dv-btn\" data-next-open>Следующий</button>";
+      } else if (role === "own") {
+        right =
+          "<button type=\"button\" class=\"dv-btn dv-btn-primary\" data-approve-doc>Утвердить</button>";
+      }
+      progress.innerHTML =
+        "<p class=\"dv-phone-progress-line\">" +
+        counts.agreed +
+        " / " +
+        counts.total +
+        "</p>" +
+        right;
+    });
+  }
+
+  function closeOverlays() {
+    sheetClauseId = "";
+    menuOpen = false;
+    setOverlay(document.getElementById("action-sheet"), false);
+    setOverlay(document.getElementById("menu-sheet"), false);
+    setOverlay(document.getElementById("sheet-backdrop"), false);
+  }
+
+  function renderActionSheet() {
+    const sheet = document.getElementById("action-sheet");
+    const backdrop = document.getElementById("sheet-backdrop");
+    const project = currentProject();
+    const show =
+      isPhoneReview() &&
+      (screen === "ours" || screen === "link") &&
+      sheetClauseId &&
+      !project.approved &&
+      !menuOpen;
+    if (!sheet) return;
+    if (!show) {
+      setOverlay(sheet, false);
+      if (!menuOpen) setOverlay(backdrop, false);
+      return;
+    }
+    const item = clauses().find((c) => c.id === sheetClauseId);
+    if (!item) {
+      setOverlay(sheet, false);
+      return;
+    }
+    const tools = !project.approved;
+    let body = clauseActionsHtml(item, tools);
+    if (openPanel.id === item.id && openPanel.mode === "edit") body += clauseEditFormHtml(item);
+    if (openPanel.id === item.id && openPanel.mode === "comment") body += clauseCommentFormHtml(item);
+    sheet.innerHTML =
+      "<div class=\"dv-sheet-handle\"></div>" +
+      "<h3 class=\"dv-sheet-title\" id=\"action-sheet-title\">Пункт " +
+      esc(item.id) +
+      "</h3>" +
+      body +
+      "<div class=\"dv-row\" style=\"margin-top:0.75rem\"><button type=\"button\" class=\"dv-btn\" data-close-sheet>Закрыть</button></div>";
+    setOverlay(sheet, true);
+    setOverlay(backdrop, true);
+  }
+
+  function renderMenuSheet() {
+    const sheet = document.getElementById("menu-sheet");
+    const backdrop = document.getElementById("sheet-backdrop");
+    const project = currentProject();
+    const show =
+      isPhoneReview() && menuOpen && (screen === "ours" || (screen === "link" && project.linkState === "live"));
+    if (!sheet) return;
+    if (!show) {
+      setOverlay(sheet, false);
+      if (!sheetClauseId) setOverlay(backdrop, false);
+      return;
+    }
+    const list = clauses();
+    let toc =
+      "<p class=\"dv-toc-title\">Разделы</p><ul class=\"dv-toc-list\">";
+    list.forEach((item) => {
+      if (item.section) {
+        toc +=
+          "<li><a class=\"dv-toc-sec\" href=\"#\" data-jump=\"" +
+          esc(item.id) +
+          "\">" +
+          esc(item.section) +
+          "</a></li>";
+      }
+      const status = clauseStatus(item);
+      let mark = "";
+      if (status === "waitUs") mark = " <span class=\"dv-pill dv-pill-action\">ждёт нас</span>";
+      else if (status === "dispute") mark = " <span class=\"dv-pill dv-pill-err\">спор</span>";
+      else if (status === "waitThem") mark = " <span class=\"dv-status dv-status-muted\">ждёт другую сторону</span>";
+      else mark = " <span class=\"dv-status\">согласован</span>";
+      toc +=
+        "<li><a href=\"#\" data-jump=\"" +
+        esc(item.id) +
+        "\">" +
+        esc(item.id) +
+        mark +
+        "</a></li>";
+    });
+    toc += "</ul>";
+    let extra = "";
+    if (role === "own" && !project.approved) {
+      extra +=
+        "<div class=\"dv-side-block\" style=\"margin-top:0.75rem\"><h3>Ссылка и реквизиты</h3>" +
+        "<p class=\"dv-caption\">Откройте на широком экране или скопируйте ссылку в блоке проекта.</p></div>";
+    }
+    if (role === "peer") {
+      extra +=
+        "<div class=\"dv-side-block\" style=\"margin-top:0.75rem\"><h3>Отправитель</h3><p class=\"dv-caption\" style=\"margin:0\">" +
+        esc(orgLabel(orgForDoc())) +
+        "</p></div>";
+    }
+    if (project.approved) {
+      extra +=
+        "<div class=\"dv-row\" style=\"margin-top:0.75rem\"><button type=\"button\" class=\"dv-btn dv-btn-primary\" data-go-print>Версия для печати</button></div>";
+    } else if (role === "own") {
+      const blocked = openList(project).length > 0;
+      extra +=
+        "<div class=\"dv-row\" style=\"margin-top:0.75rem\"><button type=\"button\" class=\"dv-btn dv-btn-primary\" data-approve-doc" +
+        (blocked ? " disabled" : "") +
+        ">Утвердить итог</button></div>";
+    }
+    sheet.innerHTML =
+      "<div class=\"dv-sheet-handle\"></div>" +
+      "<h3 class=\"dv-sheet-title\" id=\"menu-sheet-title\">Меню</h3>" +
+      toc +
+      extra +
+      "<div class=\"dv-row\" style=\"margin-top:0.75rem\"><button type=\"button\" class=\"dv-btn\" data-close-menu>Закрыть</button></div>";
+    setOverlay(sheet, true);
+    setOverlay(backdrop, true);
   }
 
   function renderLinkBox() {
@@ -1010,19 +1592,19 @@
     if (!box) return;
     if (project.linkState === "none") {
       box.innerHTML =
-        "<p class=\"dv-caption\">Ссылка-ключ ещё не выдана. Контрагент документ не видит.</p>" +
+        "<p class=\"dv-caption\">Ссылка ещё не выдана. Контрагент документ не видит.</p>" +
         "<button type=\"button\" class=\"dv-btn dv-btn-primary\" id=\"link-issue\">Выдать ссылку</button>";
     } else if (project.linkState === "live") {
       box.innerHTML =
-        "<span class=\"dv-pill dv-pill-ok\">ссылка жива</span>" +
+        "<span class=\"dv-pill dv-pill-ok\">ссылка активна</span>" +
         "<code>" +
         esc(linkUrl(project)) +
         "</code>" +
         "<div class=\"dv-row\"><button type=\"button\" class=\"dv-btn\" id=\"link-copy\">Скопировать</button>" +
-        "<button type=\"button\" class=\"dv-btn dv-btn-danger\" id=\"link-revoke\">Отозвать</button></div>";
+        "<button type=\"button\" class=\"dv-btn dv-btn-danger\" id=\"link-revoke\">Отключить</button></div>";
     } else {
       box.innerHTML =
-        "<span class=\"dv-pill dv-pill-err\">отозвана</span>" +
+        "<span class=\"dv-pill dv-pill-err\">ссылка отключена</span>" +
         "<p class=\"dv-caption\">Старый адрес больше не открывает договор.</p>" +
         "<button type=\"button\" class=\"dv-btn dv-btn-primary\" id=\"link-issue\">Выдать снова</button>";
     }
@@ -1221,6 +1803,16 @@
     document.getElementById("proto-back-own").addEventListener("click", () => {
       go("ours");
     });
+    document.getElementById("proto-open-toggle").addEventListener("click", () => {
+      protoNotesOpen = !protoNotesOpen;
+      renderProto();
+    });
+    document.getElementById("print-run").addEventListener("click", () => {
+      window.print();
+    });
+    window.addEventListener("resize", () => {
+      if (screen === "ours" || screen === "link" || screen === "print") renderDoc();
+    });
     document.getElementById("tpl-new").addEventListener("click", () => {
       const tpl = {
         id: id(),
@@ -1298,14 +1890,67 @@
         renderLinkBox();
         return;
       }
-      const printBtn = e.target.closest("#btn-print");
+      const printBtn = e.target.closest("[data-go-print]");
       if (printBtn) {
+        menuOpen = false;
         go("print");
         return;
       }
       const back = e.target.closest("#print-back");
       if (back) {
-        go("ours");
+        go(role === "peer" ? "link" : "ours");
+        return;
+      }
+      const openMenu = e.target.closest("[data-open-menu]");
+      if (openMenu) {
+        menuOpen = true;
+        sheetClauseId = "";
+        openPanel = { id: "", mode: "" };
+        renderDoc();
+        return;
+      }
+      const closeMenu = e.target.closest("[data-close-menu]");
+      if (closeMenu) {
+        menuOpen = false;
+        renderDoc();
+        return;
+      }
+      const closeSheet = e.target.closest("[data-close-sheet]");
+      if (closeSheet) {
+        sheetClauseId = "";
+        openPanel = { id: "", mode: "" };
+        renderDoc();
+        return;
+      }
+      const dismissWelcome = e.target.closest("[data-dismiss-welcome]");
+      if (dismissWelcome) {
+        markPeerWelcomeSeen(currentProject());
+        renderDoc();
+        return;
+      }
+      if (e.target.id === "sheet-backdrop" || e.target.closest("#sheet-backdrop")) {
+        closeOverlays();
+        openPanel = { id: "", mode: "" };
+        renderDoc();
+        return;
+      }
+      const jump = e.target.closest("[data-jump]");
+      if (jump) {
+        e.preventDefault();
+        const item = clauses().find((c) => c.id === jump.getAttribute("data-jump"));
+        const root = visibleDoc();
+        const el = item && root && root.querySelector("#" + clauseDomId(item));
+        menuOpen = false;
+        if (isPhoneReview() && item && !currentProject().approved) {
+          sheetClauseId = item.id;
+        }
+        renderDoc();
+        if (el) {
+          requestAnimationFrame(() => {
+            const again = visibleDoc() && visibleDoc().querySelector("#" + clauseDomId(item));
+            if (again) again.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
         return;
       }
       const nextOpen = e.target.closest("[data-next-open]");
@@ -1318,7 +1963,10 @@
         const project = currentProject();
         if (role !== "own" || project.approved || pendingCount(project)) return;
         project.approved = true;
+        project.approvedAt = "2026-10-12";
         openPanel = { id: "", mode: "" };
+        sheetClauseId = "";
+        menuOpen = false;
         renderOursChrome();
         renderDoc();
         return;
@@ -1330,6 +1978,11 @@
         const mode = panel.getAttribute("data-panel");
         if (openPanel.id === cid && openPanel.mode === mode) openPanel = { id: "", mode: "" };
         else openPanel = { id: cid, mode: mode };
+        if (isPhoneReview()) {
+          sheetClauseId = cid;
+          menuOpen = false;
+        }
+        if (role === "peer") markPeerWelcomeSeen(currentProject());
         renderDoc();
         return;
       }
@@ -1344,8 +1997,9 @@
         if (currentProject().approved) return;
         const cid = save.getAttribute("data-save");
         const item = clauses().find((c) => c.id === cid);
-        const root = visibleDoc();
-        const area = root && root.querySelector("[data-draft=\"" + cid + "\"]");
+        const area =
+          (save.closest(".dv-sheet") || document).querySelector("[data-draft=\"" + cid + "\"]") ||
+          document.querySelector("[data-draft=\"" + cid + "\"]");
         if (!item || !area) return;
         const text = area.value.trim();
         if (openPanel.mode === "edit") {
@@ -1355,6 +2009,7 @@
           if (role === "own") item.ourComment = text;
           else item.theirComment = text;
         }
+        if (role === "peer") markPeerWelcomeSeen(currentProject());
         openPanel = { id: "", mode: "" };
         renderDoc();
         return;
@@ -1368,6 +2023,23 @@
         item.text = taken;
         item.ours = "";
         item.theirs = "";
+        if (role === "peer") markPeerWelcomeSeen(currentProject());
+        openPanel = { id: "", mode: "" };
+        sheetClauseId = "";
+        renderDoc();
+        return;
+      }
+      const clauseTap = e.target.closest("[data-clause-id]");
+      if (
+        clauseTap &&
+        isPhoneReview() &&
+        (screen === "ours" || screen === "link") &&
+        !currentProject().approved &&
+        !e.target.closest("button, a, textarea, input, label, .dv-sheet")
+      ) {
+        sheetClauseId = clauseTap.getAttribute("data-clause-id");
+        menuOpen = false;
+        if (role === "peer") markPeerWelcomeSeen(currentProject());
         renderDoc();
         return;
       }
@@ -1500,5 +2172,6 @@
   }
 
   bind();
+  renderProto();
   start();
 })();
